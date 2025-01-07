@@ -161,7 +161,7 @@ async def blackjack(interaction: discord.Interaction, bet: int):
     dealer_hand_str = f"{game.dealer_hand[0]}, ?"
 
     embed = Builder.basic_embed(
-        f"Your hand: {player_hand_str}\nDealer's hand: {dealer_hand_str}\nType `hit` to draw a card, `stand` to stop."
+        f"Your hand: {player_hand_str}\nDealer's hand: {dealer_hand_str}\nType `hit` to draw a card, `stand` to stop, or `double` to double your bet."
     )
     await interaction.followup.send(embed=embed)
 
@@ -213,6 +213,66 @@ async def blackjack(interaction: discord.Interaction, bet: int):
                     )
                     await interaction.followup.send(embed=embed)
                     db.give_money(user, bet * 2)
+                elif player_hand_value == dealer_hand_value:
+                    embed = Builder.basic_embed(
+                        "It's a Push! Your bet is returned to you."
+                    )
+                    await interaction.followup.send(embed=embed)
+                    db.give_money(user, bet)  # Return the player's bet
+                else:
+                    embed = Builder.basic_embed(
+                        "The dealer wins. Better luck next time!"
+                    )
+                    await interaction.followup.send(embed=embed)
+                    db.take_money(user, bet)
+
+                game.game_over = True
+
+            elif message.content.lower() == 'double':
+                if user_balance < bet * 2:
+                    embed = Builder.basic_embed('Not enough balance to double!')
+                    await interaction.followup.send(embed=embed)
+                    continue
+
+                bet *= 2
+                db.take_money(user, bet)
+
+                game.player_hand.append(game.deal_card())
+                player_hand_value = game.calculate_hand_value(game.player_hand)
+
+                embed = Builder.basic_embed(
+                    f"Your hand after doubling: {game.get_hand_string(game.player_hand)} (Total: {player_hand_value})\nYour turn is over. The dealer will now play."
+                )
+                await interaction.followup.send(embed=embed)
+
+                game.dealer_plays()
+                player_hand_value = game.calculate_hand_value(game.player_hand)
+                dealer_hand_value = game.calculate_hand_value(game.dealer_hand)
+
+                embed = Builder.basic_embed(
+                    f"Your hand: {game.get_hand_string(game.player_hand)} (Total: {player_hand_value})\n"
+                    f"Dealer's hand: {game.get_hand_string(game.dealer_hand)} (Total: {dealer_hand_value})"
+                )
+                await interaction.followup.send(embed=embed)
+
+                if game.dealer_bust():
+                    embed = Builder.basic_embed(
+                        f"Dealer busts! You win {bet * 2} coins!"
+                    )
+                    await interaction.followup.send(embed=embed)
+                    db.give_money(user, bet * 2)
+                elif game.player_wins():
+                    embed = Builder.basic_embed(
+                        f"You win {bet * 2} coins! Congratulations!"
+                    )
+                    await interaction.followup.send(embed=embed)
+                    db.give_money(user, bet * 2)
+                elif player_hand_value == dealer_hand_value:
+                    embed = Builder.basic_embed(
+                        "It's a Push! Your bet is returned to you."
+                    )
+                    await interaction.followup.send(embed=embed)
+                    db.give_money(user, bet)
                 else:
                     embed = Builder.basic_embed(
                         "The dealer wins. Better luck next time!"
@@ -228,6 +288,15 @@ async def blackjack(interaction: discord.Interaction, bet: int):
             )
             await interaction.followup.send(embed=embed)
             return
-
+@client.tree.command(name="free", description="Gives you free coins if you're amount is 0")
+@ensure_user_in_db()
+async def free(interaction: discord.Interaction):
+    user = interaction.user
+    if db.get_balance(user.id) == 0:
+        db.give_money(user, 250)
+        embed = Builder.basic_embed('You can have 250 free coins!')
+        await interaction.response.send_message(embed=embed)
+    embed = Builder.basic_embed('You are rich bro')
+    await interaction.response.send_message(embed=embed)
 
 client.run('ODM0NDg4MzQ2MTcxOTMyNzAy.G1mybh.RxakfsLva1E_2sibExxaVVuKMduJeXLd6C1jqk')
