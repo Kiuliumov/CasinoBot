@@ -25,9 +25,8 @@ class Blackjack:
         total = sum(self.card_values[card] for card in hand)
         num_aces = hand.count('A')
 
-        # Adjust for Aces being 1 or 11
         while total > 21 and num_aces:
-            total -= 10  # Change an Ace from 11 to 1
+            total -= 10
             num_aces -= 1
         return total
 
