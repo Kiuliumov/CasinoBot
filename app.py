@@ -7,6 +7,7 @@ from discord.ext import commands
 from src.blackjack import Blackjack
 from src.builder import Builder
 from client import client
+from src.views.game_views import BlackjackView
 from src.views.leaderboard_page import LeaderboardButtons
 from decorators import ensure_user_in_db
 db = DB()
@@ -16,11 +17,6 @@ db = DB()
 async def on_ready():
     await client.tree.sync()
     print('Logged in as ' + client.user.name)
-
-
-@client.event
-async def on_interaction(interaction: discord.Interaction):
-    print(f"User {interaction.user} used the command {interaction.command.name}")
 
 
 @client.tree.command(name="daily", description="Gives you free money once per day!")
@@ -152,142 +148,17 @@ async def blackjack(interaction: discord.Interaction, bet: int):
     game = Blackjack()
     game.start_game(bet, user_balance)
 
-    embed = Builder.basic_embed(
-        f"Welcome to Blackjack!\nYour bet is {bet}. Your balance is {user_balance}. Let's start!"
-    )
-    await interaction.response.send_message(embed=embed)
-
     player_hand_str = game.get_hand_string(game.player_hand)
     dealer_hand_str = f"{game.dealer_hand[0]}, ?"
 
     embed = Builder.basic_embed(
-        f"Your hand: {player_hand_str}\nDealer's hand: {dealer_hand_str}\nType `hit` to draw a card, `stand` to stop, or `double` to double your bet."
-    )
-    await interaction.followup.send(embed=embed)
+        f"Welcome to Blackjack!\nYour bet is `{bet}`. Your balance is `{user_balance}`.\n\n"
+        f"Your hand: `{player_hand_str}`\nDealer's hand: `{dealer_hand_str}`\n\n"
+        "Use the buttons below to play your turn."
+    ).set_image(url='https://i.postimg.cc/1tXDDWnP/output.jpg')
+    view = BlackjackView(game, interaction, bet, user)
+    await interaction.response.send_message(embed=embed, view=view)
 
-    def check(message):
-        return message.author == interaction.user and message.channel == interaction.channel
-
-    while not game.game_over:
-        try:
-            message = await client.wait_for('message', check=check, timeout=30.0)
-
-            if message.content.lower() == 'hit':
-                game.player_hand.append(game.deal_card())
-                player_hand_value = game.calculate_hand_value(game.player_hand)
-
-                if player_hand_value > 21:
-                    game.game_over = True
-                    embed = Builder.basic_embed(
-                        f"Your hand: {game.get_hand_string(game.player_hand)} (Total: {player_hand_value})\nYou bust! The dealer wins!"
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.take_money(user, bet)
-                    return
-
-                embed = Builder.basic_embed(
-                    f"Your hand: {game.get_hand_string(game.player_hand)} (Total: {player_hand_value})\nType `hit` to draw again or `stand` to stop."
-                )
-                await interaction.followup.send(embed=embed)
-
-            elif message.content.lower() == 'stand':
-                game.dealer_plays()
-                player_hand_value = game.calculate_hand_value(game.player_hand)
-                dealer_hand_value = game.calculate_hand_value(game.dealer_hand)
-
-                embed = Builder.basic_embed(
-                    f"Your hand: {game.get_hand_string(game.player_hand)} (Total: {player_hand_value})\n"
-                    f"Dealer's hand: {game.get_hand_string(game.dealer_hand)} (Total: {dealer_hand_value})"
-                )
-                await interaction.followup.send(embed=embed)
-
-                if game.dealer_bust():
-                    embed = Builder.basic_embed(
-                        f"Dealer busts! You win {bet * 2} coins!"
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.give_money(user, bet * 2)
-                elif game.player_wins():
-                    embed = Builder.basic_embed(
-                        f"You win {bet * 2} coins! Congratulations!"
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.give_money(user, bet * 2)
-                elif player_hand_value == dealer_hand_value:
-                    embed = Builder.basic_embed(
-                        "It's a Push! Your bet is returned to you."
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.give_money(user, bet)  # Return the player's bet
-                else:
-                    embed = Builder.basic_embed(
-                        "The dealer wins. Better luck next time!"
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.take_money(user, bet)
-
-                game.game_over = True
-
-            elif message.content.lower() == 'double':
-                if user_balance < bet * 2:
-                    embed = Builder.basic_embed('Not enough balance to double!')
-                    await interaction.followup.send(embed=embed)
-                    continue
-
-                bet *= 2
-                db.take_money(user, bet)
-
-                game.player_hand.append(game.deal_card())
-                player_hand_value = game.calculate_hand_value(game.player_hand)
-
-                embed = Builder.basic_embed(
-                    f"Your hand after doubling: {game.get_hand_string(game.player_hand)} (Total: {player_hand_value})\nYour turn is over. The dealer will now play."
-                )
-                await interaction.followup.send(embed=embed)
-
-                game.dealer_plays()
-                player_hand_value = game.calculate_hand_value(game.player_hand)
-                dealer_hand_value = game.calculate_hand_value(game.dealer_hand)
-
-                embed = Builder.basic_embed(
-                    f"Your hand: {game.get_hand_string(game.player_hand)} (Total: {player_hand_value})\n"
-                    f"Dealer's hand: {game.get_hand_string(game.dealer_hand)} (Total: {dealer_hand_value})"
-                )
-                await interaction.followup.send(embed=embed)
-
-                if game.dealer_bust():
-                    embed = Builder.basic_embed(
-                        f"Dealer busts! You win {bet * 2} coins!"
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.give_money(user, bet * 2)
-                elif game.player_wins():
-                    embed = Builder.basic_embed(
-                        f"You win {bet * 2} coins! Congratulations!"
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.give_money(user, bet * 2)
-                elif player_hand_value == dealer_hand_value:
-                    embed = Builder.basic_embed(
-                        "It's a Push! Your bet is returned to you."
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.give_money(user, bet)
-                else:
-                    embed = Builder.basic_embed(
-                        "The dealer wins. Better luck next time!"
-                    )
-                    await interaction.followup.send(embed=embed)
-                    db.take_money(user, bet)
-
-                game.game_over = True
-
-        except asyncio.TimeoutError:
-            embed = Builder.basic_embed(
-                "You took too long to respond. Game over!"
-            )
-            await interaction.followup.send(embed=embed)
-            return
 @client.tree.command(name="free", description="Gives you free coins if you're amount is 0")
 @ensure_user_in_db()
 async def free(interaction: discord.Interaction):
@@ -298,5 +169,6 @@ async def free(interaction: discord.Interaction):
         await interaction.response.send_message(embed=embed)
     embed = Builder.basic_embed('You are rich bro')
     await interaction.response.send_message(embed=embed)
+
 
 client.run('ODM0NDg4MzQ2MTcxOTMyNzAy.G1mybh.RxakfsLva1E_2sibExxaVVuKMduJeXLd6C1jqk')
