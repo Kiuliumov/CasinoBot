@@ -1,4 +1,5 @@
-from dbconfig import DB
-db = DB()
-
-print(db.get_five_players(1))
+match 1:
+    case 1:
+        print('Not 5')
+    case 5:
+        print('5')
