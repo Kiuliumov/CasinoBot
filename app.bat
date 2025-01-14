@@ -1,0 +1,1 @@
+C:\Users\admin\Documents\GitHub\CasinoBot\venv\Scripts\python.exe C:\Users\admin\Documents\GitHub\CasinoBot\app.py

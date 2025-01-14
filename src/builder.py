@@ -2,7 +2,6 @@ import discord
 from client import client
 
 class Builder:
-    # Static methods that will build the discord embeds for each command
 
     @staticmethod
     def daily_embed(desc):
@@ -17,25 +16,42 @@ class Builder:
             )
             .set_footer(
                 text="Casino by The Cantina | Claim your reward daily!",
-                icon_url="https://cdn0.iconfinder.com/data/icons/sin-city-memories/128/casino-chip-512.png"
+                icon_url=client.user.avatar.url if client.user.avatar else None
             )
         )
 
-
     @staticmethod
-    def basic_embed(desc):
-        return discord.Embed(
-            title="<:1013moneyz:1325913819335233609> Casino",
-            description=f'**{desc}**',
-            color=discord.Color.gold()
-        ).set_footer(
-            text="Casino by The Cantina | Claim your reward daily!",
-            icon_url="https://cdn0.iconfinder.com/data/icons/sin-city-memories/128/casino-chip-512.png"
+    def weekly_embed(desc):
+        return (
+            discord.Embed(
+                title="<:1013moneyz:1325913819335233609> Weekly Reward!",
+                description=desc,
+                color=discord.Color.gold()
+            )
+            .set_thumbnail(
+                url="https://cdn0.iconfinder.com/data/icons/sin-city-memories/128/777-slots-handle-512.png"
+            )
+            .set_footer(
+                text="Casino by The Cantina | Claim your reward daily!",
+                icon_url=client.user.avatar.url if client.user.avatar else None
+            )
         )
 
     @staticmethod
     def balance_embed(balance):
-        return discord.Embed(title='<:2063pokercoin:1325913832173993994> Your total balance is ' + f'**{balance}**').set_footer(text='Casino by The Cantina | Claim your reward daily!')
+        return (
+            discord.Embed(
+                title=f'<:2063pokercoin:1325913832173993994> Your total balance is **{balance}**',
+                color=discord.Color.gold()
+            )
+            .set_thumbnail(
+                url="https://cdn0.iconfinder.com/data/icons/sin-city-memories/128/777-slots-handle-512.png"
+            )
+            .set_footer(
+                text="Casino by The Cantina | Claim your reward daily!",
+                icon_url=client.user.avatar.url if client.user.avatar else None
+            )
+        )
 
     @staticmethod
     def create_leaderboard_embed(players, page):
@@ -63,8 +79,17 @@ class Builder:
                     inline=False
                 )
 
-                embed.set_footer(text='Page ' + str(page))
+                embed.set_footer(text='Page ' + str(page), icon_url=client.user.avatar)
 
         return embed
 
-
+    @staticmethod
+    def basic_embed(desc):
+        return discord.Embed(
+            title="<:1013moneyz:1325913819335233609> Casino",
+            description=f'**{desc}**',
+            color=discord.Color.gold()
+        ).set_footer(
+            text="Casino by The Cantina | Claim your reward daily!",
+            icon_url=client.user.avatar.url
+        )
