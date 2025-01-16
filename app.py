@@ -9,8 +9,9 @@ from src.builder import Builder
 from client import client
 from src.views.game_views import BlackjackView
 from src.views.leaderboard_page import LeaderboardButtons
-from decorators import ensure_user_in_db
+from decorators import ensure_user_in_db, check_bet
 from src.slot_game import SlotPlayView
+from src.roulette import Roulette
 import random
 
 db = DB()
@@ -74,8 +75,13 @@ async def guess_the_number(interaction: discord.Interaction, bet: int):
     user = interaction.user.id
     user_balance = db.get_balance(user)
 
-    if user_balance < bet:
-        embed = Builder.basic_embed('Not enough balance for this bet!')
+    if db.get_balance(user) < bet:
+        embed = Builder.basic_embed('Insufficient balance!')
+        await interaction.response.send_message(embed=embed)
+        return
+
+    if bet <= 0:
+        embed = Builder.basic_embed('Place a positive bet!')
         await interaction.response.send_message(embed=embed)
         return
 
@@ -144,8 +150,13 @@ async def blackjack(interaction: discord.Interaction, bet: int):
     user = interaction.user.id
     user_balance = db.get_balance(user)
 
-    if user_balance < bet:
-        embed = Builder.basic_embed('Not enough balance for this bet!')
+    if db.get_balance(user) < bet:
+        embed = Builder.basic_embed('Insufficient balance!')
+        await interaction.response.send_message(embed=embed)
+        return
+
+    if bet <= 0:
+        embed = Builder.basic_embed('Place a positive bet!')
         await interaction.response.send_message(embed=embed)
         return
 
@@ -282,11 +293,26 @@ async def coinflip(interaction: discord.Interaction, bet: int, prediction: str):
 
     user = interaction.user.id
 
+    if db.get_balance(user) < bet:
+        embed = Builder.basic_embed('Insufficient balance!')
+        await interaction.response.send_message(embed=embed)
+        return
+
+    if bet <= 0:
+        embed = Builder.basic_embed('Place a positive bet!')
+        await interaction.response.send_message(embed=embed)
+        return
+
     computer_choice = random.randint(0, 1)
     if computer_choice == 0:
         computer_choice = 'tails'
     else:
         computer_choice = 'heads'
+
+    if db.get_balance(user) < bet:
+        embed = Builder.basic_embed('Insufficient balance!')
+        await interaction.response.send_message(embed=embed)
+        return
 
     if computer_choice == 'heads':
         if prediction == 'heads':
@@ -315,5 +341,115 @@ async def coinflip(interaction: discord.Interaction, bet: int, prediction: str):
 
             await interaction.response.send_message(embed=embed)
 
-client.run('ODM0NDg4MzQ2MTcxOTMyNzAy.G1mybh.RxakfsLva1E_2sibExxaVVuKMduJeXLd6C1jqk')
+
+@client.tree.command(name='roulette', description='A roulette command!')
+@ensure_user_in_db()
+async def roulette(interaction: discord.Interaction, bet: int, color: str = None, number: int = None):
+    roulette_game = Roulette()
+    user = interaction.user.id
+
+    if db.get_balance(user) < bet:
+        embed = Builder.basic_embed('Insufficient balance!')
+        await interaction.response.send_message(embed=embed)
+        return
+
+    if bet <= 0:
+        embed = Builder.basic_embed('Place a positive bet!')
+        await interaction.response.send_message(embed=embed)
+        return
+
+    result, color_win = roulette_game.spin()
+    db.give_money(user, -bet)
+    if color and number:
+        db.give_money(user, -bet)
+        if (color == 'red' and number not in roulette_game.red_numbers) or \
+                (color == 'black' and number not in roulette_game.black_numbers):
+            await interaction.response.send_message(
+                embed=Builder.basic_embed(f'Please choose compatible numbers!\n Red numbers: {", ".join(list(map(str, roulette_game.red_numbers)))}\n Black numbers: {", ".join(list(map(str, roulette_game.black_numbers)))}'))
+            return
+
+    if color == 'green':
+        number = 0
+
+    if db.get_balance(user) < bet:
+        embed = Builder.basic_embed('Insufficient balance!')
+        await interaction.response.send_message(embed=embed)
+        return
+
+    if color is None and number is None:
+        await interaction.response.send_message('You need at least one bet to play!')
+        return
+
+    if color is None and number:
+        if result == number:
+            db.give_money(user, bet * 35)
+            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 35)
+            await interaction.response.send_message(embed=embed)
+        else:
+            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None)
+            await interaction.response.send_message(embed=embed)
+
+    elif number is None and color:
+        if color_win == color:
+            db.give_money(user, bet * 2)
+            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 2)
+            await interaction.response.send_message(embed=embed)
+        else:
+            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None)
+            await interaction.response.send_message(embed=embed)
+
+    else:
+        if color_win == color and result == number:
+            db.give_money(user, bet * 35 * 2)
+            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 35 * 2)
+            await interaction.response.send_message(embed=embed)
+        else:
+            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None)
+            await interaction.response.send_message(embed=embed)
+
+
+@client.tree.command(name='list', description='List the available commands')
+async def list_command(interaction: discord.Interaction):
+    embed = Builder.basic_embed(
+
+    """       
+    
+    <:1533takemymoney:1325913823533863014>   **/balance** - Shows your current coin balance.
+    
+    
+    <:LeaderboardTrophy02:1209532891109916714> **/leaderboard** - Displays the leaderboard of the top players in the casino bot.
+    
+    
+    🎲   **/guess** - Starts a number guessing game where you can win coins by guessing a number between 1 and 100.
+
+
+    🃏   **/blackjack** - Play a game of Blackjack! Place a bet and try to beat the dealer.
+    
+    
+    💸   **/free** - Gives you 250 coins if your balance is 0.
+    
+    
+    🎰   **/slot** - Try your luck with the slot machine! Spin a 3x3 grid of symbols to win coins.
+    
+    
+    📅   **/weekly** - Gives you 50,000 coins once a week.
+    
+    
+    🎁   **/gift** - Gift coins to another user. You must have enough balance and the recipient must not be the bot.
+    
+    
+    ℹ️   **/about** - Displays information about the bot and its creators.
+    
+    
+    🪙   **/coinflip** - Flip a coin and try to predict if it will land on heads or tails.
+    
+    
+    🎡   **/roulette** - Place a bet on a color or number in roulette and see if you win.
+    
+    
+    """
+                                )
+    embed.title = 'Casino Bot Command List:'
+    await interaction.response.send_message(embed=embed)
+
 
