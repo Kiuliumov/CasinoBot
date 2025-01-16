@@ -15,8 +15,7 @@ class SlotMachine:
         self.special_symbol = os.path.abspath(os.path.join('src', 'images', 'symbols', 'jackpot.png'))
         self.jackpot_multiplier = 5000
 
-        total_weight_of_other_symbols = 1
-        self.special_symbol_weight = total_weight_of_other_symbols
+        self.special_symbol_weight = 1
 
         self.reel_symbols = []
 
