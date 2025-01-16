@@ -93,3 +93,31 @@ class Builder:
             text="Casino by The Cantina | Claim your reward daily!",
             icon_url=client.user.avatar.url
         )
+
+    @staticmethod
+    def roulette_embed(win, number, color, winnings):
+        if color == 'black':
+            color = '⚫'
+        else:
+            color = '🔴'
+
+        embed_color = 0x4CAF50 if win else 0xFF0000
+        embed = discord.Embed(
+            title="<:1013moneyz:1325913819335233609> Casino",
+            description="Here's the result of your roulette spin!",
+            color=embed_color
+        )
+
+        embed.add_field(name="Spin Result", value=f"**Number**: {number}\n**Color**: {color}", inline=False)
+
+        if win:
+            embed.add_field(name="Congratulations!", value="You won your bet!", inline=False)
+            embed.add_field(name='Winnings: ', value=winnings, inline=False)
+        else:
+            embed.add_field(name="Better Luck Next Time!", value="You lost your bet, try again!", inline=False)
+        embed.set_footer(
+            text="Casino by The Cantina | Claim your reward daily!",
+            icon_url=client.user.avatar.url
+        )
+
+        return embed
