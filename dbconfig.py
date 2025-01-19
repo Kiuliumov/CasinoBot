@@ -8,10 +8,19 @@ class DB:
     );
     """
 
+    CREATE_GUILDS_TABLE = """
+    
+    CREATE TABLE IF NOT EXISTS guilds (
+    id INTEGER PRIMARY KEY,
+    language VARCHAR(25) NOT NULL DEFAULT en
+    )
+    """
+
     def __init__(self):
         self.con = sqlite3.connect('casino.db')
         self.cur = self.con.cursor()
         self.cur.execute(self.CREATE_TABLE)
+        self.cur.execute(self.CREATE_GUILDS_TABLE)
         self.con.commit()
 
     def new_user(self, user_id, initial_money=250):
@@ -73,6 +82,21 @@ class DB:
         self.cur.executemany('''
         INSERT INTO users (id, money) VALUES (?, ?)
         ''', data)
+        self.con.commit()
+
+    def get_current_guild_language(self, id):
+        self.cur.execute("SELECT language FROM guilds WHERE id = ?", (id,))
+        result = self.cur.fetchone()
+
+        if result is None:
+            self.cur.execute("INSERT INTO guilds (id, language) VALUES (?, ?)", (id, 'en'))
+            self.con.commit()
+            return 'en'
+
+        return result[0]
+
+    def change_current_guild_language(self, id, language):
+        self.cur.execute("UPDATE guilds SET language = ? WHERE id = ?", (language, id))
         self.con.commit()
 
     @property
