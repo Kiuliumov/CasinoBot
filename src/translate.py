@@ -67,6 +67,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     - **/about**: Learn about the bot.\n\n
     - **/coinflip**: Flip a coin to win coins.\n\n
     - **/roulette**: Bet on a color or number in roulette.\n\n
+    - **/setlanguage**: Set your sever language\n\n
     """,
             "not_your_game": "This is not your game!",
         },
@@ -132,6 +133,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     - **/about**: Aprende sobre el bot.\n\n
     - **/coinflip**: Lanza una moneda para ganar monedas.\n\n
     - **/roulette**: Apuesta en un color o número en la ruleta.\n\n
+    - **/set language**: Establezca el idioma de su servidor/l\n\n
     """,
             "not_your_game": "¡Este no es tu juego!",
         },
@@ -197,6 +199,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     - **/about**: Lerne den Bot kennen.\n\n
     - **/coinflip**: Wirf eine Münze, um Münzen zu gewinnen.\n\n
     - **/roulette**: Wette auf eine Farbe oder Zahl in der Roulette.\n\n
+    - **/set language**: Stelle deine Serversprache einund\n\n
     """,
             "not_your_game": "Das ist nicht dein Spiel!",
         },
@@ -262,6 +265,8 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     - **/about**: Научете повече за бота.\n\n
     - **/coinflip**: Хвърлете монета, за да спечелите монети.\n\n
     - **/roulette**: Залагайте на цвят или число в рулетка.\n\n
+    - **/setlanguage**: Задайте езика на сървъра си!\n\n
+
     """,
             "not_your_game": "Това не е твоята игра!",
         }
