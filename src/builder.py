@@ -1,13 +1,15 @@
 import discord
 from client import client
+from src.translate import translate
+
 
 class Builder:
 
     @staticmethod
-    def daily_embed(desc):
+    def daily_embed(desc, guild_id, title):
         return (
             discord.Embed(
-                title="<:1013moneyz:1325913819335233609> Daily Reward!",
+                title=f"<:1013moneyz:1325913819335233609> {title}",
                 description=desc,
                 color=discord.Color.gold()
             )
@@ -15,16 +17,16 @@ class Builder:
                 url="https://cdn0.iconfinder.com/data/icons/sin-city-memories/128/777-slots-handle-512.png"
             )
             .set_footer(
-                text="Casino by The Cantina | Claim your reward daily!",
+                text=translate(key='footer',guild_id=guild_id),
                 icon_url=client.user.avatar.url if client.user.avatar else None
             )
         )
 
     @staticmethod
-    def weekly_embed(desc):
+    def weekly_embed(desc, guild_id):
         return (
             discord.Embed(
-                title="<:1013moneyz:1325913819335233609> Weekly Reward!",
+                title=f"<:1013moneyz:1325913819335233609> {translate('weekly_success', guild_id)}",
                 description=desc,
                 color=discord.Color.gold()
             )
@@ -32,37 +34,36 @@ class Builder:
                 url="https://cdn0.iconfinder.com/data/icons/sin-city-memories/128/777-slots-handle-512.png"
             )
             .set_footer(
-                text="Casino by The Cantina | Claim your reward daily!",
+                text=translate(key='footer', guild_id=guild_id),
                 icon_url=client.user.avatar.url if client.user.avatar else None
             )
         )
 
     @staticmethod
-    def balance_embed(balance):
+    def balance_embed(balance, guild_id):
         return (
             discord.Embed(
-                title=f'<:2063pokercoin:1325913832173993994> Your total balance is **{balance}**',
+                title=translate('balance', guild_id, balance=balance),
                 color=discord.Color.gold()
             )
             .set_thumbnail(
                 url="https://cdn0.iconfinder.com/data/icons/sin-city-memories/128/777-slots-handle-512.png"
             )
             .set_footer(
-                text="Casino by The Cantina | Claim your reward daily!",
+                text=translate(key='footer', guild_id=guild_id),
                 icon_url=client.user.avatar.url if client.user.avatar else None
             )
         )
 
     @staticmethod
-    def create_leaderboard_embed(players, page):
-
+    def create_leaderboard_embed(players, page, guild_id):
         if not players:
             return discord.Embed(
-                title='<:1013moneyz:1325913819335233609> Leaderboard',
+                title=f"<:1013moneyz:1325913819335233609> {translate('leaderboard_title', guild_id)}",
                 description="No players found for this page."
             )
 
-        embed = discord.Embed(title='<:1013moneyz:1325913819335233609> Leaderboard')
+        embed = discord.Embed(title=f"<:1013moneyz:1325913819335233609> {translate('leaderboard_title', guild_id)}")
 
         user = client.get_user(players[0][0])
         avatar_url = user.avatar
@@ -79,23 +80,23 @@ class Builder:
                     inline=False
                 )
 
-                embed.set_footer(text='Page ' + str(page), icon_url=client.user.avatar)
+                embed.set_footer(text=f"Page {page}", icon_url=client.user.avatar)
 
         return embed
 
     @staticmethod
-    def basic_embed(desc):
+    def basic_embed(desc, guild_id):
         return discord.Embed(
-            title="<:1013moneyz:1325913819335233609> Casino",
+            title=f"<:1013moneyz:1325913819335233609> Casino",
             description=f'**{desc}**',
             color=discord.Color.gold()
         ).set_footer(
-            text="Casino by The Cantina | Claim your reward daily!",
+            text=translate(key='footer', guild_id=guild_id),
             icon_url=client.user.avatar.url
         )
 
     @staticmethod
-    def roulette_embed(win, number, color, winnings):
+    def roulette_embed(win, number, color, winnings, guild_id):
         if color == 'black':
             color = '⚫'
         else:
@@ -103,20 +104,13 @@ class Builder:
 
         embed_color = 0x4CAF50 if win else 0xFF0000
         embed = discord.Embed(
-            title="<:1013moneyz:1325913819335233609> Casino",
-            description="Here's the result of your roulette spin!",
+            title=f"<:1013moneyz:1325913819335233609> Casino",
+            description=translate('roulette_win' if win else 'roulette_lose', guild_id, number=number, color=color, winnings=winnings),
             color=embed_color
         )
 
-        embed.add_field(name="Spin Result", value=f"**Number**: {number}\n**Color**: {color}", inline=False)
-
-        if win:
-            embed.add_field(name="Congratulations!", value="You won your bet!", inline=False)
-            embed.add_field(name='Winnings: ', value=winnings, inline=False)
-        else:
-            embed.add_field(name="Better Luck Next Time!", value="You lost your bet, try again!", inline=False)
         embed.set_footer(
-            text="Casino by The Cantina | Claim your reward daily!",
+            text=translate(key='footer', guild_id=guild_id),
             icon_url=client.user.avatar.url
         )
 
