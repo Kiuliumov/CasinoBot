@@ -7,9 +7,11 @@ from discord.ext import commands
 from src.blackjack import Blackjack
 from src.builder import Builder
 from client import client
+from src.translate import translate
 from src.views.game_views import BlackjackView
+from src.views.languages_view import LanguagesView
 from src.views.leaderboard_page import LeaderboardButtons
-from decorators import ensure_user_in_db, check_bet
+from decorators import ensure_user_in_db
 from src.slot_game import SlotPlayView
 from src.roulette import Roulette
 import random
@@ -32,10 +34,12 @@ async def daily(interaction: discord.Interaction):
     result = db.give_money(user_id, free_money)
 
     if not result:
-        embed = Builder.daily_embed(f'There was an error!')
+        error_message = translate("daily_error", interaction.guild_id)
+        embed = Builder.daily_embed(error_message, interaction.guild.id)
         await interaction.response.send_message(embed=embed)
+        return
 
-    embed = Builder.daily_embed('Enjoy your free 500 coins!')
+    embed = Builder.daily_embed(desc=None, title=translate("daily_success", interaction.guild_id), guild_id=interaction.guild.id)
     await interaction.response.send_message(embed=embed)
 
 
@@ -46,8 +50,10 @@ async def on_test_error(interaction: discord.Interaction, error: commands.Comman
         hours = int(remaining_time // 3600)
         minutes = int((remaining_time % 3600) // 60)
         seconds = int(remaining_time % 60)
-        embed = Builder.daily_embed(
-            f'This command is on cooldown.\nPlease try again in {hours} hours, {minutes} minutes, and {seconds} seconds.')
+
+        time = f"{hours}:{minutes}:{seconds}"
+        cooldown_message = translate("daily_cooldown", guild_id=interaction.guild.id, time=time)
+        embed = Builder.daily_embed(cooldown_message, interaction.guild.id, title=translate("daily_error", interaction.guild_id))
         await interaction.response.send_message(embed=embed)
 
 
@@ -56,7 +62,7 @@ async def on_test_error(interaction: discord.Interaction, error: commands.Comman
 async def balance(interaction: discord.Interaction):
     user_id = interaction.user.id
     balance = db.get_balance(user_id)
-    embed = Builder.balance_embed(str(balance))
+    embed = Builder.balance_embed(str(balance), guild_id=interaction.guild.id)
     await interaction.response.send_message(embed=embed)
 
 
@@ -65,7 +71,7 @@ async def balance(interaction: discord.Interaction):
 async def leaderboard(interaction: discord.Interaction):
     current_page = 1
     current_players = db.get_five_players(current_page)
-    embed = Builder.create_leaderboard_embed(current_players, current_page)
+    embed = Builder.create_leaderboard_embed(current_players, current_page, guild_id=interaction.guild.id)
     await interaction.response.send_message(embed=embed, view=LeaderboardButtons(current_page))
 
 
@@ -75,13 +81,13 @@ async def guess_the_number(interaction: discord.Interaction, bet: int):
     user = interaction.user.id
     user_balance = db.get_balance(user)
 
-    if db.get_balance(user) < bet:
-        embed = Builder.basic_embed('Insufficient balance!')
+    if user_balance < bet:
+        embed = Builder.basic_embed(desc= translate(key='insufficient_balance', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
     if bet <= 0:
-        embed = Builder.basic_embed('Place a positive bet!')
+        embed = Builder.basic_embed(translate(key='place_positive_bet', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
@@ -91,17 +97,13 @@ async def guess_the_number(interaction: discord.Interaction, bet: int):
     secret_number = random.randint(1, 100)
     tries = 5
 
-    embed = Builder.basic_embed(
-        "Number Guessing Game\n\n" +
-        f"I've chosen a number between 1 and 100. You have {tries} attempts to guess it.\n\nType your guess in the chat!"
-    )
+    embed = Builder.basic_embed(desc=translate(key='guess_intro', guild_id=interaction.guild.id, tries=tries), guild_id=interaction.guild.id)
     await interaction.response.send_message(embed=embed)
 
     def check(message):
         return message.author == interaction.user and message.channel == interaction.channel
 
     while tries > 0:
-        print(secret_number)
         try:
             message = await client.wait_for('message', check=check, timeout=30.0)
             guess = int(message.content)
@@ -109,38 +111,27 @@ async def guess_the_number(interaction: discord.Interaction, bet: int):
             if guess == secret_number:
                 winnings = bet * 1 + tries
                 db.give_money(user, winnings)
-                embed = Builder.basic_embed(
-                    "You Win!\n\n" +
-                    f"Congratulations! You guessed the number {secret_number} correctly. You win {winnings} coins!"
-                )
+                embed = Builder.basic_embed(translate(key='guess_correct', guild_id=interaction.guild.id, number=secret_number, winnings=winnings), guild_id=interaction.guild.id)
                 await interaction.followup.send(embed=embed)
                 return
             elif guess < secret_number:
-                feedback = "Too low!"
+                feedback = translate(key='guess_feedback_too_low', guild_id=interaction.guild.id)
             else:
-                feedback = "Too high!"
+                feedback = translate(key='guess_feedback_too_high', guild_id=interaction.guild.id)
 
             tries -= 1
             if tries != 0:
-                embed = Builder.basic_embed(
-                    "Try Again!\n\n" +
-                    f"{feedback} You have {tries} attempts remaining."
-                )
+                embed = Builder.basic_embed(translate(key='guess_wrong', guild_id=interaction.guild.id, feedback=feedback, tries=tries), guild_id=interaction.guild.id)
                 await interaction.followup.send(embed=embed)
         except ValueError:
             await interaction.followup.send('Enter a valid number!')
         except asyncio.TimeoutError:
-            embed = Builder.basic_embed(
-                "Timeout!\n" +
-                "You took too long to respond. Game over!"
-            )
+            embed = Builder.basic_embed(translate(key='guess_timeout', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
             await interaction.followup.send(embed=embed)
             return
 
-    embed = Builder.basic_embed(
-        "Game Over\n" +
-        f"You've used all your attempts. The number was {secret_number}. Better luck next time!"
-    )
+    embed = Builder.basic_embed(translate(key='guess_game_over', guild_id=interaction.guild.id, number=secret_number),
+                                guild_id=interaction.guild.id)
     await interaction.followup.send(embed=embed)
 
 
@@ -151,12 +142,14 @@ async def blackjack(interaction: discord.Interaction, bet: int):
     user_balance = db.get_balance(user)
 
     if db.get_balance(user) < bet:
-        embed = Builder.basic_embed('Insufficient balance!')
+        embed = Builder.basic_embed(desc=translate(key='insufficient_balance', guild_id=interaction.guild.id),
+                                    guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
     if bet <= 0:
-        embed = Builder.basic_embed('Place a positive bet!')
+        embed = Builder.basic_embed(desc=translate(key='place_positive_bet', guild_id=interaction.guild.id),
+                                    guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
@@ -167,10 +160,10 @@ async def blackjack(interaction: discord.Interaction, bet: int):
     dealer_hand_str = f"{game.dealer_hand[0]}, ?"
 
     embed = Builder.basic_embed(
-        f"Welcome to Blackjack!\nYour bet is `{bet}`. Your balance is `{user_balance}`.\n\n"
-        f"Your hand: `{player_hand_str}`\nDealer's hand: `{dealer_hand_str}`\n\n"
-        "Use the buttons below to play your turn."
-    ).set_image(url='https://i.postimg.cc/1tXDDWnP/output.jpg')
+        f"{translate(key='blackjack_intro', bet=bet, balance=user_balance, guild_id=interaction.guild.id)}\n\n"
+        f"{translate(key='blackjack_your_hand', guild_id=interaction.guild.id)} `: {player_hand_str}`\n {translate(key='blackjack_dealer_hand', guild_id=interaction.guild.id)} `: {dealer_hand_str}`\n\n",
+        guild_id=interaction.guild.id).set_image(url='https://i.postimg.cc/1tXDDWnP/output.jpg')
+
     view = BlackjackView(game, interaction, bet, user)
     await interaction.response.send_message(embed=embed, view=view)
 
@@ -181,9 +174,10 @@ async def free(interaction: discord.Interaction):
     user = interaction.user
     if db.get_balance(user.id) == 0:
         db.give_money(user.id, 250)
-        embed = Builder.basic_embed('You can have 250 free coins!')
+        embed = Builder.basic_embed(translate(key='free_success', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
-    embed = Builder.basic_embed('You are rich bro')
+    embed = Builder.basic_embed(translate(key='free_rich', guild_id=interaction.guild.id),
+                                guild_id=interaction.guild.id)
     await interaction.response.send_message(embed=embed)
 
 
@@ -191,7 +185,7 @@ async def free(interaction: discord.Interaction):
 @ensure_user_in_db()
 async def slot(interaction: discord.Interaction):
     embed = discord.Embed(title='Welcome to slots!',
-                          description='You place a bet and spin a 3x3 grid filled with different symbols. Each symbol has a payout value, and some symbols are more likely to appear than others.\n\nIf you get three matching symbols in a row, column, or diagonal, you win a payout based on the symbol\'s value. There\'s also a special symbol that can give a huge jackpot if it appears!\n\n**Those are the symbols with their multipliers:**\n').set_thumbnail(
+                          description=translate(key='slot_intro', guild_id=interaction.guild.id)).set_thumbnail(
         url='https://i.postimg.cc/zXRHmpV2/image.png')
     symbols = [
             {"symbol": "<:96706rocketbloxfruits:1327654132047286335> ", "payout": 1.1, 'weight': 10},
@@ -218,11 +212,11 @@ async def weekly(interaction: discord.Interaction):
     result = db.give_money(user_id, free_money)
 
     if not result:
-        embed = Builder.basic_embed('There was an error!')
+        embed = Builder.basic_embed(desc=translate('daily_error', interaction.guild_id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
-    embed = Builder.weekly_embed('Enjoy your free 50000 coins!')
+    embed = Builder.weekly_embed(desc=translate('weekly_success', interaction.guild_id), guild_id=interaction.guild.id)
     await interaction.response.send_message(embed=embed)
 
 
@@ -234,12 +228,14 @@ async def on_weekly_error(interaction: discord.Interaction, error: discord.app_c
         hours = int((remaining_time % 86400) // 3600)
         minutes = int((remaining_time % 3600) // 60)
         seconds = int(remaining_time % 60)
+
         time_message = (
             f'{days} days, {hours} hours, {minutes} minutes, and {seconds} seconds'
             if days > 0 else
             f'{hours} hours, {minutes} minutes, and {seconds} seconds'
         )
-        embed = Builder.daily_embed(f'This command is on cooldown.\nPlease try again in {time_message}.')
+
+        embed = Builder.daily_embed(desc=translate('daily_cooldown', interaction.guild_id, time=time_message), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
 
 
@@ -252,54 +248,53 @@ async def gift(interaction: discord.Interaction, amount: int, user: discord.User
         db.new_user(user.id)
 
     if user.id == user_id:
-        await interaction.response.send_message("Nice try!")
+        # Translate the error message
+        await interaction.response.send_message(translate('gift_self_error', interaction.guild_id))
         return
 
     user_balance = db.get_balance(user_id)
     if user.id == client.user.id:
-        await interaction.response.send_message("Oops don't give me money!")
+        await interaction.response.send_message(translate('gift_bot_error', interaction.guild_id))
         return
 
     if amount > user_balance:
-        embed = Builder.basic_embed('You don\'t have enough money.')
+        embed = Builder.basic_embed(translate('gift_insufficient', interaction.guild_id))
         await interaction.response.send_message(embed=embed)
         return
 
     db.give_money(user.id, amount)
     db.take_money(user_id, amount)
 
-    embed = Builder.basic_embed(f'{interaction.user.display_name} gave {amount} to {user.display_name}!')
-
+    embed = Builder.basic_embed(translate('gift_success', interaction.guild_id, giver=interaction.user.display_name, amount=amount, receiver=user.display_name), guild_id=interaction.guild.id)
     await interaction.response.send_message(embed=embed)
 
 
 @client.tree.command(name='about', description='Information about the bot')
 @ensure_user_in_db()
 async def about(interaction: discord.Interaction):
-    embed = discord.Embed(title='About us').set_author(name=f'{client.user.name}', icon_url=client.user.avatar)
-    embed.description = 'Casino is a dynamic and engaging Discord bot that brings the excitement of a virtual casino to your server. With a built-in economy system, users can earn, bet, and manage their virtual coins while participating in a variety of games like slots, blackjack, and number guessing. The bot also fosters community interaction through features like leaderboards and gifting, allowing players to compete for the top spot or share their winnings with friends. Daily and weekly bonuses, along with a safety net for those with empty wallets, ensure that everyone can join in the fun. With an easy-to-use interface and immersive gameplay, Casino transforms your server into an entertaining and interactive gaming hub.\n\nDeveloped by The Cantina'
+    embed = discord.Embed(title=translate('about', interaction.guild_id)).set_author(name=f'{client.user.name}', icon_url=client.user.avatar)
+    embed.description = translate('about', interaction.guild_id)
     embed.set_image(url='https://img.freepik.com/free-vector/golden-casino-background-with-playing-cards_1017-33699.jpg')
-    embed.set_footer(text = "Casino by The Cantina | Claim your reward daily!")
+    embed.set_footer(text=translate('footer', interaction.guild_id))
     await interaction.response.send_message(embed=embed)
-
-
 
 @client.tree.command(name='coinflip', description='A coinflip command!')
 @ensure_user_in_db()
 async def coinflip(interaction: discord.Interaction, bet: int, prediction: str):
     if prediction != 'heads' and prediction != 'tails':
-        await interaction.response.send_message('You should choose either "heads" or "tails".')
+        embed = Builder.basic_embed(desc=translate(key='coinflip_invalid_prediction', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
+        await interaction.response.send_message(embed=embed)
         return
 
     user = interaction.user.id
 
     if db.get_balance(user) < bet:
-        embed = Builder.basic_embed('Insufficient balance!')
+        embed = Builder.basic_embed(desc=translate(key='insufficient_balance', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
     if bet <= 0:
-        embed = Builder.basic_embed('Place a positive bet!')
+        embed = Builder.basic_embed(translate('place_positive_bet', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
@@ -310,7 +305,7 @@ async def coinflip(interaction: discord.Interaction, bet: int, prediction: str):
         computer_choice = 'heads'
 
     if db.get_balance(user) < bet:
-        embed = Builder.basic_embed('Insufficient balance!')
+        embed = Builder.basic_embed(desc=translate(key='insufficient_balance', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
@@ -318,26 +313,26 @@ async def coinflip(interaction: discord.Interaction, bet: int, prediction: str):
         if prediction == 'heads':
             db.take_money(user, bet)
             winnings = str(bet + bet)
-            embed = Builder.basic_embed('Congratulations! you win! ' + winnings + ' coins!'
+            embed = Builder.basic_embed(translate(key='coinflip_win', guild_id=interaction.guild.id, winnings=winnings), guild_id=interaction.guild.id
                                         ).set_image(url='https://sciencegems.wordpress.com/wp-content/uploads/2022/04/heads-coinflip.gif')
             db.give_money(user, int(winnings))
             await interaction.response.send_message(embed=embed)
         else:
             db.take_money(user, bet)
-            embed = Builder.basic_embed('Almost!, why not try again?').set_image(url='https://media1.tenor.com/m/kK8D7hQXX5wAAAAd/coins-tails.gif')
+            embed = Builder.basic_embed(translate(key='coinflip_lose', guild_id=interaction.guild.id), guild_id=interaction.guild.id).set_image(url='https://sciencegems.wordpress.com/wp-content/uploads/2022/04/heads-coinflip.gif')
             await interaction.response.send_message(embed=embed)
     else:
         if prediction == 'tails':
             db.take_money(user, bet)
             winnings = str(bet + bet)
-            embed = Builder.basic_embed('Congratulations! you win! ' + winnings + ' coins!'
+            embed = Builder.basic_embed(translate(key='coinflip_win', guild_id=interaction.guild.id, winnings=winnings), guild_id=interaction.guild.id
                                         ).set_image(url='https://media1.tenor.com/m/kK8D7hQXX5wAAAAd/coins-tails.gif')
             db.give_money(user, int(winnings))
             await interaction.response.send_message(embed=embed)
         else:
             db.take_money(user, bet)
-            embed = Builder.basic_embed('Almost!, why not try again?').set_image(
-                url='https://sciencegems.wordpress.com/wp-content/uploads/2022/04/heads-coinflip.gif')
+            embed = Builder.basic_embed(translate(key='coinflip_lose', guild_id=interaction.guild.id), guild_id=interaction.guild.id).set_image(
+                url='https://media1.tenor.com/m/kK8D7hQXX5wAAAAd/coins-tails.gif')
 
             await interaction.response.send_message(embed=embed)
 
@@ -345,111 +340,95 @@ async def coinflip(interaction: discord.Interaction, bet: int, prediction: str):
 @client.tree.command(name='roulette', description='A roulette command!')
 @ensure_user_in_db()
 async def roulette(interaction: discord.Interaction, bet: int, color: str = None, number: int = None):
+    guild_id = interaction.guild.id
     roulette_game = Roulette()
     user = interaction.user.id
 
     if db.get_balance(user) < bet:
-        embed = Builder.basic_embed('Insufficient balance!')
+        embed = Builder.basic_embed(desc= translate(key='insufficient_balance', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
     if bet <= 0:
-        embed = Builder.basic_embed('Place a positive bet!')
+        embed = Builder.basic_embed(desc=translate('place_positive_bet', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
+        return
+    if ((color == 'red' and (number is not None and number not in roulette_game.red_numbers)) or
+            (color == 'black' and (number is not None and number not in roulette_game.black_numbers)) or
+            (color not in ['green', 'red', 'black']) or
+            (number is not None and not (0 <= number <= 36))):
+        await interaction.response.send_message(
+            embed=Builder.basic_embed(
+                f'{translate(key="roulette_invalid", guild_id=guild_id)}\n 🔴 {", ".join(list(map(str, roulette_game.red_numbers)))}\n\n ⚫ {", ".join(list(map(str, roulette_game.black_numbers)))}',
+                guild_id=guild_id))
         return
 
     result, color_win = roulette_game.spin()
-    db.give_money(user, -bet)
     if color and number:
         db.give_money(user, -bet)
-        if (color == 'red' and number not in roulette_game.red_numbers) or \
-                (color == 'black' and number not in roulette_game.black_numbers):
-            await interaction.response.send_message(
-                embed=Builder.basic_embed(f'Please choose compatible numbers!\n Red numbers: {", ".join(list(map(str, roulette_game.red_numbers)))}\n Black numbers: {", ".join(list(map(str, roulette_game.black_numbers)))}'))
-            return
+
 
     if color == 'green':
         number = 0
 
     if db.get_balance(user) < bet:
-        embed = Builder.basic_embed('Insufficient balance!')
+        embed = Builder.basic_embed(translate(key='insufficient_balance', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
         return
 
     if color is None and number is None:
-        await interaction.response.send_message('You need at least one bet to play!')
+        await interaction.response.send_message(translate(key="roulette_invalid", guild_id=guild_id))
         return
 
     if color is None and number:
         if result == number:
             db.give_money(user, bet * 35)
-            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 35)
+            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 35, guild_id=guild_id)
             await interaction.response.send_message(embed=embed)
         else:
-            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None)
+            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None, guild_id=guild_id)
             await interaction.response.send_message(embed=embed)
 
     elif number is None and color:
         if color_win == color:
             db.give_money(user, bet * 2)
-            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 2)
+            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 2, guild_id=interaction.guild.id)
             await interaction.response.send_message(embed=embed)
         else:
-            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None)
+            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None, guild_id=interaction.guild.id)
             await interaction.response.send_message(embed=embed)
 
     else:
         if color_win == color and result == number:
             db.give_money(user, bet * 35 * 2)
-            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 35 * 2)
+            embed = Builder.roulette_embed(win=True, number=result, color=color_win, winnings=bet * 35 * 2, guild_id=interaction.guild.id)
             await interaction.response.send_message(embed=embed)
         else:
-            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None)
+            embed = Builder.roulette_embed(win=False, number=result, color=color_win, winnings=None, guild_id=interaction.guild.id)
             await interaction.response.send_message(embed=embed)
 
 
 @client.tree.command(name='list', description='List the available commands')
+@ensure_user_in_db()
 async def list_command(interaction: discord.Interaction):
-    embed = Builder.basic_embed(
-
-    """       
-    
-    <:1533takemymoney:1325913823533863014>   **/balance** - Shows your current coin balance.
-    
-    
-    <:LeaderboardTrophy02:1209532891109916714> **/leaderboard** - Displays the leaderboard of the top players in the casino bot.
-    
-    
-    🎲   **/guess** - Starts a number guessing game where you can win coins by guessing a number between 1 and 100.
-
-
-    🃏   **/blackjack** - Play a game of Blackjack! Place a bet and try to beat the dealer.
-    
-    
-    💸   **/free** - Gives you 250 coins if your balance is 0.
-    
-    
-    🎰   **/slot** - Try your luck with the slot machine! Spin a 3x3 grid of symbols to win coins.
-    
-    
-    📅   **/weekly** - Gives you 50,000 coins once a week.
-    
-    
-    🎁   **/gift** - Gift coins to another user. You must have enough balance and the recipient must not be the bot.
-    
-    
-    ℹ️   **/about** - Displays information about the bot and its creators.
-    
-    
-    🪙   **/coinflip** - Flip a coin and try to predict if it will land on heads or tails.
-    
-    
-    🎡   **/roulette** - Place a bet on a color or number in roulette and see if you win.
-    
-    
-    """
-                                )
-    embed.title = 'Casino Bot Command List:'
+    embed = Builder.basic_embed(desc=translate(key='command_list', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
     await interaction.response.send_message(embed=embed)
 
 
+@client.tree.command(name='setlanguage', description='Change your server language. Requires administrator privileges')
+@ensure_user_in_db()
+async def setlanguage(interaction: discord.Interaction):
+
+    if not interaction.user.guild_permissions.administrator:
+        embed = Builder.basic_embed(desc=translate(key='user_permissions_error', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
+        await interaction.response.send_message(embed=embed)
+
+    else:
+        embed = Builder.basic_embed(desc=translate(key='language_message', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
+        available_languages = translate(key='get_all', guild_id=interaction.guild.id)
+        for language in available_languages.keys():
+            embed.add_field(name=f'`{language}` ----> {available_languages[language]['language_text']}', value='', inline='false')
+        await interaction.response.send_message(embed=embed, view=LanguagesView())
+
+
+client.run('')
