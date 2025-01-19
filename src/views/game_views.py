@@ -1,10 +1,11 @@
 import discord
 from discord.ui import Button
-
 from dbconfig import DB
 from src.builder import Builder
+from src.translate import translate
 
 db = DB()
+
 class BlackjackView(discord.ui.View):
     def __init__(self, game, interaction, bet, user):
         super().__init__()
@@ -12,11 +13,12 @@ class BlackjackView(discord.ui.View):
         self.interaction = interaction
         self.bet = bet
         self.user = user
+        self.guild_id = interaction.guild.id
 
     @discord.ui.button(label="Hit", style=discord.ButtonStyle.green)
     async def hit(self, interaction: discord.Interaction, button: Button):
         if interaction.user.id != self.user:
-            await interaction.response.send_message("This is not your game!", ephemeral=True)
+            await interaction.response.send_message(translate(key="not_your_game", guild_id=self.guild_id), ephemeral=True)
             return
 
         self.game.player_hand.append(self.game.deal_card())
@@ -25,16 +27,19 @@ class BlackjackView(discord.ui.View):
         if player_hand_value > 21:
             self.game.game_over = True
             embed = Builder.basic_embed(
-                f"Your hand: {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-                "You bust! The dealer wins!"
+                f"{translate(key='blackjack_your_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
+                f"{translate(key='blackjack_bust', guild_id=self.guild_id)}",
+                guild_id=interaction.guild.id
+
             )
             await interaction.response.edit_message(embed=embed, view=None)
             db.take_money(self.user, self.bet)
             return
 
         embed = Builder.basic_embed(
-            f"Your hand: {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-            "Press `hit` to draw again or `stand` to stop."
+            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
+            f"{translate(key='blackjack_hit_or_stand', guild_id=self.guild_id)}",
+            guild_id=interaction.guild.id
         )
         self.remove_item(self.double)
         await interaction.response.edit_message(embed=embed, view=self)
@@ -42,7 +47,7 @@ class BlackjackView(discord.ui.View):
     @discord.ui.button(label="Stand", style=discord.ButtonStyle.blurple)
     async def stand(self, interaction: discord.Interaction, button: Button):
         if interaction.user.id != self.user:
-            await interaction.response.send_message("This is not your game!", ephemeral=True)
+            await interaction.response.send_message(translate(key="not_your_game", guild_id=self.guild_id), ephemeral=True)
             return
 
         self.game.dealer_plays()
@@ -50,42 +55,41 @@ class BlackjackView(discord.ui.View):
         dealer_hand_value = self.game.calculate_hand_value(self.game.dealer_hand)
 
         embed = Builder.basic_embed(
-            f"Your hand: {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-            f"Dealer's hand: {self.game.get_hand_string(self.game.dealer_hand)} (Total: {dealer_hand_value})"
+            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
+            f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.dealer_hand)} (Total: {dealer_hand_value})",
+            guild_id=interaction.guild.id
         )
         await interaction.response.edit_message(embed=embed, view=None)
 
         if self.game.dealer_bust():
             embed = Builder.basic_embed(
-                f"Dealer busts! You win {self.bet * 2} coins!"
-            )
+                f"{translate(key='blackjack_dealer_bust', guild_id=self.guild_id)} {self.bet * 2} {translate(key='coins', guild_id=self.guild_id)}!", guild_id=interaction.guild.id)
             db.give_money(self.user, self.bet * 2)
         elif self.game.player_wins():
             embed = Builder.basic_embed(
-                f"You win {self.bet * 2} coins! Congratulations!"
-            )
+                f"{translate(key='blackjack_you_win', guild_id=self.guild_id)} {self.bet * 2} {translate(key='coins', guild_id=self.guild_id)}! {translate(key='blackjack_congratulations', guild_id=self.guild_id)}", guild_id=interaction.guild.id)
             db.give_money(self.user, self.bet * 2)
         elif player_hand_value == dealer_hand_value:
             embed = Builder.basic_embed(
-                "It's a Push! Your bet is returned to you."
-            )
+                translate(key='blackjack_push', guild_id=self.guild_id), guild_id=interaction.guild.id)
             db.give_money(self.user, self.bet)
         else:
             embed = Builder.basic_embed(
-                "The dealer wins. Better luck next time!"
+                translate(key='blackjack_dealer_wins', guild_id=self.guild_id),
+                guild_id=interaction.guild.id
             )
             db.take_money(self.user, self.bet)
 
         await interaction.followup.send(embed=embed)
 
-    @discord.ui.button(label="Double")
+    @discord.ui.button(label="Double", style=discord.ButtonStyle.secondary)
     async def double(self, interaction: discord.Interaction, button: Button):
         if interaction.user.id != self.user:
-            await interaction.response.send_message("This is not your game!", ephemeral=True)
+            await interaction.response.send_message(translate(key="not_your_game", guild_id=self.guild_id), ephemeral=True)
             return
 
         if db.get_balance(self.user) < self.bet * 2:
-            embed = Builder.basic_embed('Not enough balance to double!')
+            embed = Builder.basic_embed(translate(key='insufficient_balance', guild_id=self.guild_id))
             await interaction.response.send_message(embed=embed, ephemeral=True)
             return
 
@@ -96,39 +100,40 @@ class BlackjackView(discord.ui.View):
         player_hand_value = self.game.calculate_hand_value(self.game.player_hand)
 
         embed = Builder.basic_embed(
-            f"Your hand after doubling: {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-            "Your turn is over. The dealer will now play."
+            f"{translate(key='blackjack_after_doubling', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
+            f"{translate(key='blackjack_dealer_now_playing', guild_id=self.guild_id)}",
+            guild_id=interaction.guild.id
         )
         await interaction.response.edit_message(embed=embed, view=None)
-
 
         self.game.dealer_plays()
         dealer_hand_value = self.game.calculate_hand_value(self.game.dealer_hand)
 
         embed = Builder.basic_embed(
-            f"Your hand: {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-            f"Dealer's hand: {self.game.get_hand_string(self.game.dealer_hand)} (Total: {dealer_hand_value})"
+            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
+            f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.dealer_hand)} (Total: {dealer_hand_value})",
+            guild_id=interaction.guild.id
         )
         await interaction.followup.send(embed=embed)
 
         if self.game.dealer_bust():
             embed = Builder.basic_embed(
-                f"Dealer busts! You win {self.bet * 2} coins!"
+                f"{translate(key='blackjack_dealer_bust', guild_id=self.guild_id)} {self.bet * 2} {translate(key='coins', guild_id=self.guild_id)}!"
             )
             db.give_money(self.user, self.bet * 2)
         elif self.game.player_wins():
             embed = Builder.basic_embed(
-                f"You win {self.bet * 2} coins! Congratulations!"
-            )
+                f"{translate(key='blackjack_you_win', guild_id=self.guild_id)} {self.bet * 2} {translate(key='coins', guild_id=self.guild_id)}! {translate(key='blackjack_congratulations', guild_id=self.guild_id)}", guild_id=interaction.guild.id)
             db.give_money(self.user, self.bet * 2)
         elif player_hand_value == dealer_hand_value:
             embed = Builder.basic_embed(
-                "It's a Push! Your bet is returned to you."
+                translate(key='blackjack_push', guild_id=self.guild_id)
             )
             db.give_money(self.user, self.bet)
         else:
             embed = Builder.basic_embed(
-                "The dealer wins. Better luck next time!"
+                translate(key='blackjack_dealer_wins', guild_id=self.guild_id),
+                guild_id=interaction.guild.id
             )
             db.take_money(self.user, self.bet)
 
