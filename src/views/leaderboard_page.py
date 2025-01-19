@@ -19,7 +19,7 @@ class LeaderboardButtons(discord.ui.View):
             self.current_page -= 1
 
         current_players = db.get_five_players(self.current_page)
-        embed = Builder.create_leaderboard_embed(current_players, self.current_page)
+        embed = Builder.create_leaderboard_embed(current_players, self.current_page, guild_id=interaction.guild.id)
 
         await interaction.response.edit_message(embed=embed, view=self)
 
@@ -34,6 +34,6 @@ class LeaderboardButtons(discord.ui.View):
             self.current_page += 1
 
         current_players = db.get_five_players(self.current_page)
-        embed = Builder.create_leaderboard_embed(current_players, self.current_page)
+        embed = Builder.create_leaderboard_embed(current_players, self.current_page, guild_id=interaction.guild.id)
 
         await interaction.response.edit_message(embed=embed, view=self)
