@@ -431,4 +431,12 @@ async def setlanguage(interaction: discord.Interaction):
         await interaction.response.send_message(embed=embed, view=LanguagesView())
 
 
+@client.tree.command(name='vote', description='Vote for the discord bot')
+@ensure_user_in_db()
+async def vote(interaction: discord.Interaction):
+
+        embed = Builder.basic_embed(desc='Vote for Casino now!', guild_id=interaction.guild.id)
+        await interaction.response.send_message(embed=embed, view=discord)
+
+
 client.run('')
