@@ -27,18 +27,19 @@ class BlackjackView(discord.ui.View):
         if player_hand_value > 21:
             self.game.game_over = True
             embed = Builder.basic_embed(
-                f"{translate(key='blackjack_your_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-                f"{translate(key='blackjack_bust', guild_id=self.guild_id)}",
+                f"{translate(key='blackjack_your_hand', guild_id=self.guild_id, cards=self.game.get_hand_string(self.game.player_hand), total=player_hand_value)}\n"
+                f"{translate(key='blackjack_busted', guild_id=self.guild_id, total=player_hand_value)}\n"
+                f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id, cards=self.game.get_hand_string(self.game.dealer_hand), total=self.game.calculate_hand_value(self.game.dealer_hand))}",
                 guild_id=interaction.guild.id
-
             )
             await interaction.response.edit_message(embed=embed, view=None)
             db.take_money(self.user, self.bet)
             return
 
         embed = Builder.basic_embed(
-            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-            f"{translate(key='blackjack_hit_or_stand', guild_id=self.guild_id)}",
+            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id, cards=self.game.get_hand_string(self.game.player_hand), total=player_hand_value)}\n"
+            f"{translate(key='blackjack_hit_or_stand', guild_id=self.guild_id)}\n"
+            f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id, cards=self.game.get_hand_string(self.game.dealer_hand), total=self.game.calculate_hand_value(self.game.dealer_hand))}",
             guild_id=interaction.guild.id
         )
         self.remove_item(self.double)
@@ -55,27 +56,33 @@ class BlackjackView(discord.ui.View):
         dealer_hand_value = self.game.calculate_hand_value(self.game.dealer_hand)
 
         embed = Builder.basic_embed(
-            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-            f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.dealer_hand)} (Total: {dealer_hand_value})",
+            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id, total=player_hand_value)}\n"
+            f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id,cards=self.game.get_hand_string(self.game.dealer_hand), total=dealer_hand_value)}",
             guild_id=interaction.guild.id
         )
         await interaction.response.edit_message(embed=embed, view=None)
 
         if self.game.dealer_bust():
             embed = Builder.basic_embed(
-                f"{translate(key='blackjack_dealer_bust', guild_id=self.guild_id)} {self.bet * 2} {translate(key='coins', guild_id=self.guild_id)}!", guild_id=interaction.guild.id)
+                f"{translate(key='blackjack_dealer_busted', guild_id=self.guild_id, total=dealer_hand_value, winnings=self.bet + self.bet)}",
+                guild_id=interaction.guild.id
+            )
             db.give_money(self.user, self.bet * 2)
         elif self.game.player_wins():
             embed = Builder.basic_embed(
-                f"{translate(key='blackjack_you_win', guild_id=self.guild_id)} {self.bet * 2} {translate(key='coins', guild_id=self.guild_id)}! {translate(key='blackjack_congratulations', guild_id=self.guild_id)}", guild_id=interaction.guild.id)
+                f"{translate(key='blackjack_win', guild_id=self.guild_id, winnings=self.bet * 2, total=player_hand_value)} {translate(key='blackjack_congratulations', guild_id=self.guild_id)}",
+                guild_id=interaction.guild.id
+            )
             db.give_money(self.user, self.bet * 2)
         elif player_hand_value == dealer_hand_value:
             embed = Builder.basic_embed(
-                translate(key='blackjack_push', guild_id=self.guild_id), guild_id=interaction.guild.id)
+                translate(key='blackjack_push', guild_id=self.guild_id),
+                guild_id=interaction.guild.id
+            )
             db.give_money(self.user, self.bet)
         else:
             embed = Builder.basic_embed(
-                translate(key='blackjack_dealer_wins', guild_id=self.guild_id),
+                translate(key='blackjack_lose', guild_id=self.guild_id, total=dealer_hand_value),
                 guild_id=interaction.guild.id
             )
             db.take_money(self.user, self.bet)
@@ -100,8 +107,9 @@ class BlackjackView(discord.ui.View):
         player_hand_value = self.game.calculate_hand_value(self.game.player_hand)
 
         embed = Builder.basic_embed(
-            f"{translate(key='blackjack_after_doubling', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-            f"{translate(key='blackjack_dealer_now_playing', guild_id=self.guild_id)}",
+            f"{translate(key='blackjack_after_doubling', guild_id=self.guild_id, cards=self.game.get_hand_string(self.game.player_hand), total=player_hand_value)}\n"
+            f"{translate(key='blackjack_dealer_now_playing', guild_id=self.guild_id)}\n"
+            f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id, cards=self.game.get_hand_string(self.game.dealer_hand), total=self.game.calculate_hand_value(self.game.dealer_hand))}",
             guild_id=interaction.guild.id
         )
         await interaction.response.edit_message(embed=embed, view=None)
@@ -110,29 +118,33 @@ class BlackjackView(discord.ui.View):
         dealer_hand_value = self.game.calculate_hand_value(self.game.dealer_hand)
 
         embed = Builder.basic_embed(
-            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.player_hand)} (Total: {player_hand_value})\n"
-            f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id)} {self.game.get_hand_string(self.game.dealer_hand)} (Total: {dealer_hand_value})",
+            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id, cards=self.game.get_hand_string(self.game.player_hand), total=player_hand_value)}\n"
+            f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id, cards=self.game.get_hand_string(self.game.dealer_hand), total=dealer_hand_value)}",
             guild_id=interaction.guild.id
         )
         await interaction.followup.send(embed=embed)
 
         if self.game.dealer_bust():
             embed = Builder.basic_embed(
-                f"{translate(key='blackjack_dealer_bust', guild_id=self.guild_id)} {self.bet * 2} {translate(key='coins', guild_id=self.guild_id)}!"
+                f"{translate(key='blackjack_win', guild_id=self.guild_id, winnings=f'{self.bet * 2} :coin:', total=self.game.calculate_hand_value(self.game.player_hand))} ",
+                guild_id=interaction.guild.id
             )
             db.give_money(self.user, self.bet * 2)
         elif self.game.player_wins():
             embed = Builder.basic_embed(
-                f"{translate(key='blackjack_you_win', guild_id=self.guild_id)} {self.bet * 2} {translate(key='coins', guild_id=self.guild_id)}! {translate(key='blackjack_congratulations', guild_id=self.guild_id)}", guild_id=interaction.guild.id)
+                f"{translate(key='blackjack_congratulations', guild_id=self.guild_id, winnings=self.bet*2)} {self.bet * 2}",
+                guild_id=interaction.guild.id
+            )
             db.give_money(self.user, self.bet * 2)
         elif player_hand_value == dealer_hand_value:
             embed = Builder.basic_embed(
-                translate(key='blackjack_push', guild_id=self.guild_id)
+                translate(key='blackjack_push', guild_id=self.guild_id),
+                guild_id=self.guild_id
             )
             db.give_money(self.user, self.bet)
         else:
             embed = Builder.basic_embed(
-                translate(key='blackjack_dealer_wins', guild_id=self.guild_id),
+                translate(key='blackjack_busted', guild_id=self.guild_id, total=self.game.calculate_hand_value(self.game.player_hand)),
                 guild_id=interaction.guild.id
             )
             db.take_money(self.user, self.bet)
