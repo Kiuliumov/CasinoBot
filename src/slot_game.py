@@ -76,35 +76,35 @@ class SlotPlayView(discord.ui.View):
                 return False
             return True
 
-        @discord.ui.button(label="Bet 50", style=discord.ButtonStyle.primary)
+        @discord.ui.button(label="50", style=discord.ButtonStyle.primary)
         @check_balance_decorator(50)
         async def bet_50(self, interaction: discord.Interaction, button: discord.ui.Button):
             if not await self.check_user(interaction):
                 return
             await self.play_slot(interaction, 50)
 
-        @discord.ui.button(label="Bet 100", style=discord.ButtonStyle.primary)
+        @discord.ui.button(label="100", style=discord.ButtonStyle.primary)
         @check_balance_decorator(100)
         async def bet_100(self, interaction: discord.Interaction, button: discord.ui.Button):
             if not await self.check_user(interaction):
                 return
             await self.play_slot(interaction, 100)
 
-        @discord.ui.button(label="Bet 500", style=discord.ButtonStyle.primary)
+        @discord.ui.button(label="500", style=discord.ButtonStyle.primary)
         @check_balance_decorator(500)
         async def bet_500(self, interaction: discord.Interaction, button: discord.ui.Button):
             if not await self.check_user(interaction):
                 return
             await self.play_slot(interaction, 500)
 
-        @discord.ui.button(label="Bet 1000", style=discord.ButtonStyle.primary)
+        @discord.ui.button(label="1000", style=discord.ButtonStyle.primary)
         @check_balance_decorator(1000)
         async def bet_1000(self, interaction: discord.Interaction, button: discord.ui.Button):
             if not await self.check_user(interaction):
                 return
             await self.play_slot(interaction, 1000)
 
-        @discord.ui.button(label="Bet 5000", style=discord.ButtonStyle.primary)
+        @discord.ui.button(label="5000", style=discord.ButtonStyle.primary)
         @check_balance_decorator(5000)
         async def bet_5000(self, interaction: discord.Interaction, button: discord.ui.Button):
             if not await self.check_user(interaction):
