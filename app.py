@@ -16,6 +16,7 @@ from src.slot_game import SlotPlayView
 from src.roulette import Roulette
 import random
 
+
 db = DB()
 
 
@@ -161,7 +162,7 @@ async def blackjack(interaction: discord.Interaction, bet: int):
 
     embed = Builder.basic_embed(
         f"{translate(key='blackjack_intro', bet=bet, balance=user_balance, guild_id=interaction.guild.id)}\n\n"
-        f"{translate(key='blackjack_your_hand', guild_id=interaction.guild.id)} `: {player_hand_str}`\n {translate(key='blackjack_dealer_hand', guild_id=interaction.guild.id)} `: {dealer_hand_str}`\n\n",
+        f"{translate(key='blackjack_your_hand', guild_id=interaction.guild.id, cards=game.get_hand_string(game.player_hand), total=game.calculate_hand_value(game.player_hand))}\n {translate(key='blackjack_dealer_hand', guild_id=interaction.guild.id, cards=game.get_hand_string(game.dealer_hand), total=game.calculate_hand_value(game.dealer_hand))}\n\n",
         guild_id=interaction.guild.id).set_image(url='https://i.postimg.cc/1tXDDWnP/output.jpg')
 
     view = BlackjackView(game, interaction, bet, user)
@@ -431,12 +432,34 @@ async def setlanguage(interaction: discord.Interaction):
         await interaction.response.send_message(embed=embed, view=LanguagesView())
 
 
-@client.tree.command(name='vote', description='Vote for the discord bot')
+@client.tree.command(name='vote', description='Vote for the discord bot and get rewards')
+@discord.app_commands.checks.cooldown(1, 86400, key=lambda i: (i.guild_id, i.user.id))
 @ensure_user_in_db()
 async def vote(interaction: discord.Interaction):
 
-        embed = Builder.basic_embed(desc='Vote for Casino now!', guild_id=interaction.guild.id)
-        await interaction.response.send_message(embed=embed, view=discord)
+        embed = Builder.basic_embed(desc='Click here to vote: https://discordbotlist.com/bots/crescendo\n\n/v/Get 5000 coins for free daily!', guild_id=interaction.guild.id)
+        db.give_money(user_id=interaction.user.id, amount=5000)
+        await interaction.response.send_message(embed=embed)
+@vote.error
+async def vote_error(interaction: discord.Interaction, error):
+    if isinstance(error, discord.app_commands.CommandOnCooldown):
+        remaining_time = round(error.retry_after, 2)
+        hours = int((remaining_time % 86400) // 3600)
+        minutes = int((remaining_time % 3600) // 60)
+        seconds = int(remaining_time % 60)
+
+        time_message = (
+            f'{hours} hours, {minutes} minutes, and {seconds} seconds'
+        )
+
+        embed = Builder.daily_embed(desc=translate('daily_cooldown', interaction.guild_id, time=time_message), guild_id=interaction.guild.id)
+        await interaction.response.send_message(embed=embed)
+@client.tree.command(name='website', description='Vote for the discord bot')
+@ensure_user_in_db()
+async def vote(interaction: discord.Interaction):
+
+        embed = Builder.basic_embed(desc=f'{translate(key="website", guild_id=interaction.guild.id)}https://kiuliumov.github.io/casino_website/', guild_id=interaction.guild.id)
+        await interaction.response.send_message(embed=embed)
 
 
 client.run('')
