@@ -2,7 +2,7 @@ from dbconfig import DB
 
 def translate(key, guild_id, balance=None, feedback=None, tries=None, number=None, winnings=None, giver=None,
               amount=None, receiver=None, color=None, time=None,
-              bet=None):
+              bet=None, total=None, cards=None):
     translations = {
         "en": {
             "language_text": "English",
@@ -21,17 +21,19 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
             "guess_timeout": "Timeout! You took too long to respond. Game over!",
             "guess_game_over": f"Game Over. The number was {number}. Better luck next time!",
             "guess_feedback_too_low": "Too low!",
-            "guess_feedback_too_high": "Too high!",
-            "blackjack_intro": f"Welcome to Blackjack! Your bet is `{bet}`. Your balance is `{balance}`.",
-            "blackjack_your_hand": "Your hand:",
-            "blackjack_dealer_hand": "Dealer's hand:",
-            "blackjack_total": "Total: {total}",
-            "blackjack_dealer_total": "Dealer's total: {total}",
-            "blackjack_win": "You win! Your total was {total}.",
-            "blackjack_lose": "You lose! Dealer's total was {total}.",
-            "blackjack_push": "It's a push! Both you and the dealer have the same total.",
-            "blackjack_busted": "You busted! Your total was {total}.",
-            "blackjack_dealer_busted": "The dealer busted! Dealer's total was {total}. You win!",
+            "blackjack_intro": f"Welcome to Blackjack! Your bet is `{bet}` coins. Your balance is `{balance}` coins. Let's play!",
+            "blackjack_your_hand": "Your hand: {cards} (Total: {total})",
+            "blackjack_dealer_hand": "Dealer's hand: {cards} (Total: {total})",
+            "blackjack_win": f"Congratulations! You win {winnings} coins with a total of {total}.",
+            "blackjack_lose": f"You lose! The dealer's total was {total}. Better luck next time.",
+            "blackjack_push": "It's a tie! Both you and the dealer have the same total.",
+            "blackjack_busted": f"Busted! Your total of {total} exceeds 21. Game over.",
+            "blackjack_dealer_busted": f"The dealer busted with a total of {total}! You win {winnings} coins.",
+            "blackjack_hit_or_stand": "Would you like to **hit** (draw a card) or **stand** (keep your current hand)?",
+            "blackjack_after_doubling": "After doubling down, your hand is: {cards} (Total: {total}).",
+            "blackjack_dealer_now_playing": "The dealer is now playing their turn...",
+            "blackjack_you_win": f"You win {winnings} coins! Great job!",
+            "blackjack_congratulations": "Well played! You're on a winning streak!",
             "free_success": "You can have 250 free coins!",
             "free_rich": "You are rich, bro!",
             "slot_intro": '''You place a bet and spin a 3x3 grid filled with different symbols. Each symbol has a payout value, and some symbols are more likely to appear than others.
@@ -41,6 +43,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     **Those are the symbols with their multipliers:**''',
             "weekly_success": "Enjoy your free 50,000 coins!",
             "gift_success": f"{giver} gave {amount} to {receiver}!",
+            "website": 'Visit our website: ',
             "gift_self_error": "You can't gift yourself!",
             "gift_bot_error": "Oops, don't give me money!",
             "gift_insufficient": "You don't have enough money.",
@@ -88,16 +91,19 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
             "guess_game_over": f"Juego terminado. El número era {number}. ¡Mejor suerte la próxima vez!",
             "guess_feedback_too_low": "¡Demasiado bajo!",
             "guess_feedback_too_high": "¡Demasiado alto!",
-            "blackjack_intro": f"¡Bienvenido a Blackjack! Tu apuesta es `{bet}`. Tu saldo es `{balance}`.",
-            "blackjack_your_hand": "Tu mano:",
-            "blackjack_dealer_hand": "Mano del dealer:",
-            "blackjack_total": "Total: {total}",
-            "blackjack_dealer_total": "Total del dealer: {total}",
-            "blackjack_win": "¡Ganaste! Tu total fue {total}.",
-            "blackjack_lose": "¡Perdiste! El total del dealer fue {total}.",
-            "blackjack_push": "¡Es un empate! Tanto tú como el dealer tienen el mismo total.",
-            "blackjack_busted": "¡Te pasaste! Tu total fue {total}.",
-            "blackjack_dealer_busted": "¡El dealer se pasó! El total del dealer fue {total}. ¡Ganaste!",
+            "blackjack_intro": f"¡Bienvenido a Blackjack! Tu apuesta es de `{bet}` monedas. Tu saldo es de `{balance}` monedas. ¡Juguemos!",
+            "blackjack_your_hand": "Tu mano: {cards} (Total: {total})",
+            "blackjack_dealer_hand": "Mano del crupier: {cards} (Total: {total})",
+            "blackjack_win": f"¡Felicidades! Ganaste {winnings} monedas con un total de {total}.",
+            "blackjack_lose": f"Perdiste. El total del crupier fue {total}. Mejor suerte la próxima vez.",
+            "blackjack_push": "¡Es un empate! Tanto tú como el crupier tienen el mismo total.",
+            "blackjack_busted": f"Te pasaste. Tu total de {total} supera 21. Fin del juego.",
+            "blackjack_dealer_busted": f"El crupier se pasó con un total de {total}. ¡Ganaste {winnings} monedas!",
+            "blackjack_hit_or_stand": "¿Quieres **pedir** (tomar otra carta) o **plantarte** (quedarte con tu mano actual)?",
+            "blackjack_after_doubling": "Después de doblar tu apuesta, tu mano es: {cards} (Total: {total}).",
+            "blackjack_dealer_now_playing": "El crupier está jugando su turno...",
+            "blackjack_you_win": f"¡Ganaste {winnings} monedas! ¡Buen trabajo!",
+            "blackjack_congratulations": "¡Bien jugado! ¡Estás en racha!",
             "free_success": "¡Puedes tener 250 monedas gratis!",
             "free_rich": "¡Eres rico, amigo!",
             "slot_intro": '''Colocas una apuesta y giras una cuadrícula 3x3 llena de diferentes símbolos. Cada símbolo tiene un valor de pago, y algunos símbolos tienen más probabilidades de aparecer que otros.
@@ -107,6 +113,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     **Estos son los símbolos con sus multiplicadores:**''',
             "weekly_success": "¡Disfruta de tus 50,000 monedas gratis!",
             "gift_success": f"¡{giver} le dio {amount} a {receiver}!",
+            "website": "Visite nuestro sitio web: ",
             "gift_self_error": "¡No puedes regalarte monedas a ti mismo!",
             "gift_bot_error": "¡Ups, no me des dinero!",
             "gift_insufficient": "No tienes suficiente dinero.",
@@ -154,16 +161,19 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
             "guess_game_over": f"Spiel beendet. Die Zahl war {number}. Viel Glück beim nächsten Mal!",
             "guess_feedback_too_low": "Zu niedrig!",
             "guess_feedback_too_high": "Zu hoch!",
-            "blackjack_intro": f"Willkommen bei Blackjack! Dein Einsatz ist `{bet}`. Dein Kontostand beträgt `{balance}`.",
-            "blackjack_your_hand": "Deine Hand:",
-            "blackjack_dealer_hand": "Hand des Dealers:",
-            "blackjack_total": "Gesamt: {total}",
-            "blackjack_dealer_total": "Gesamt des Dealers: {total}",
-            "blackjack_win": "Du gewinnst! Dein Gesamtwert war {total}.",
-            "blackjack_lose": "Du verlierst! Der Gesamtwert des Dealers war {total}.",
+            "blackjack_intro": f"Willkommen bei Blackjack! Dein Einsatz beträgt `{bet}` Münzen. Dein Guthaben ist `{balance}` Münzen. Viel Glück!",
+            "blackjack_your_hand": "Deine Hand: {cards} (Gesamt: {total})",
+            "blackjack_dealer_hand": "Hand des Dealers: {cards} (Gesamt: {total})",
+            "blackjack_win": f"Herzlichen Glückwunsch! Du gewinnst {winnings} Münzen mit einem Gesamtwert von {total}.",
+            "blackjack_lose": f"Du verlierst. Der Gesamtwert des Dealers war {total}. Viel Glück beim nächsten Mal.",
             "blackjack_push": "Es ist ein Unentschieden! Sowohl du als auch der Dealer haben den gleichen Gesamtwert.",
-            "blackjack_busted": "Du hast dich überbaut! Dein Gesamtwert war {total}.",
-            "blackjack_dealer_busted": "Der Dealer hat sich überbaut! Der Gesamtwert des Dealers war {total}. Du gewinnst!",
+            "blackjack_busted": f"Überkauft! Dein Gesamtwert von {total} übersteigt 21. Spiel vorbei.",
+            "blackjack_dealer_busted": f"Der Dealer hat sich überkauft mit einem Gesamtwert von {total}. Du gewinnst {winnings} Münzen!",
+            "blackjack_hit_or_stand": "Möchtest du **ziehen** (eine weitere Karte) oder **stehen bleiben** (mit deiner aktuellen Hand weitermachen)?",
+            "blackjack_after_doubling": "Nach dem Verdoppeln beträgt deine Hand: {cards} (Gesamt: {total}).",
+            "blackjack_dealer_now_playing": "Der Dealer spielt jetzt seine Runde...",
+            "blackjack_you_win": f"Du gewinnst {winnings} Münzen! Herzlichen Glückwunsch!",
+            "blackjack_congratulations": "Gut gespielt! Du bist auf einer Gewinnsträhne!",
             "free_success": "Du kannst 250 kostenlose Münzen erhalten!",
             "free_rich": "Du bist reich, mein Freund!",
             "slot_intro": '''Du platzierst eine Wette und drehst ein 3x3 Raster mit verschiedenen Symbolen. Jedes Symbol hat einen Auszahlungspreis, und einige Symbole erscheinen häufiger als andere.
@@ -173,6 +183,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     **Dies sind die Symbole mit ihren Multiplikatoren:**''',
             "weekly_success": "Genieße deine 50.000 kostenlosen Münzen!",
             "gift_success": f"{giver} gab {amount} an {receiver}!",
+            "website": 'Besuchen Sie unsere Website: ',
             "gift_self_error": "Du kannst dir selbst keine Münzen schenken!",
             "gift_bot_error": "Ups, gib mir kein Geld!",
             "gift_insufficient": "Du hast nicht genug Geld.",
@@ -230,6 +241,11 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
             "blackjack_push": "Има равенство! Както вие, така и дилърът имате същото общо.",
             "blackjack_busted": "Изгоряхте! Вашето общо беше {total}.",
             "blackjack_dealer_busted": "Дилърът се провали! Общото на дилъра беше {total}. Печелите!",
+            "blackjack_bust": "Прехвърлихте! Успех следващия път.",
+            "blackjack_hit_or_stand": "Искате ли да теглите карта или да останете?",
+            "blackjack_you_win": "Поздравления! Вие спечелихте!",
+            "blackjack_congratulations": "Добра игра! На печеливша серия сте!",
+            "blackjack_after_doubling": "След удвояване вашата ръка е:",
             "free_success": "Можете да получите 250 безплатни монети!",
             "free_rich": "Богат сте, приятелю!",
             "slot_intro": '''Залагате и въртите 3x3 мрежа, пълна с различни символи. Всеки символ има стойност на изплащане, а някои символи се появяват по-често от други.
@@ -239,6 +255,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     **Ето символите със техните множители:**''',
             "weekly_success": "Наслаждавайте се на вашите 50 000 безплатни монети!",
             "gift_success": f"{giver} даде {amount} на {receiver}!",
+            "website": 'Посетете нашия уебсайт: ',
             "gift_self_error": "Не можете да подарите себе си!",
             "gift_bot_error": "Ооо, не ми давайте пари!",
             "gift_insufficient": "Нямате достатъчно пари.",
@@ -249,7 +266,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
             "roulette_win": f"Печелите! Числото беше {number} ({color}). Спечелихте {winnings} монети!",
             "roulette_lose": f"Загубихте! Числото беше {number} ({color}).",
             "roulette_invalid": "Моля, изберете валидни числа за red/black.",
-            "footer": "Casino by The Cantina | Вземете своята награда всеки ден!",
+            "footer": "Casino от The Cantina | Вземете своята награда всеки ден!",
             "command_list": """
     Списък на командите на Casino Bot:
 
@@ -269,6 +286,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
 
     """,
             "not_your_game": "Това не е твоята игра!",
+            "blackjack_dealer_now_playing": "Дилърът сега играе своята ръка."
         }
     }
 
@@ -279,7 +297,10 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     language = db.get_current_guild_language(guild_id)
     language_translations = translations.get(language, translations['en'])
 
-    translation = language_translations.get(key, "Translation not found.")
+    try:
+        translation = language_translations[key]
+    except KeyError:
+        return f'Translation not found for {key}!'
 
     if isinstance(translation,
                   str) and '{' in translation:
@@ -294,7 +315,9 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
             receiver=receiver,
             color=color,
             bet=bet,
-            feedback=feedback
+            feedback=feedback,
+            total=total,
+            cards=cards
         )
 
     return translation
