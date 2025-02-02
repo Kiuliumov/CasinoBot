@@ -56,7 +56,7 @@ class BlackjackView(discord.ui.View):
         dealer_hand_value = self.game.calculate_hand_value(self.game.dealer_hand)
 
         embed = Builder.basic_embed(
-            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id, total=player_hand_value)}\n"
+            f"{translate(key='blackjack_your_hand', guild_id=self.guild_id, total=player_hand_value, cards=self.game.get_hand_string(self.game.player_hand))}\n"
             f"{translate(key='blackjack_dealer_hand', guild_id=self.guild_id,cards=self.game.get_hand_string(self.game.dealer_hand), total=dealer_hand_value)}",
             guild_id=interaction.guild.id
         )
