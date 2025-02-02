@@ -73,6 +73,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     - **/setlanguage**: Set your sever language\n\n
     """,
             "not_your_game": "This is not your game!",
+            "vote_message": 'Click here to vote:\nhttps://discordbotlist.com/bots/crescendo\n\nGet 5000 coins for free daily!'
         },
         "es": {
             "language_text": "Espanol",
@@ -143,6 +144,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     - **/set language**: Establezca el idioma de su servidor/l\n\n
     """,
             "not_your_game": "¡Este no es tu juego!",
+            "vote_message": 'Haz clic aquí para votar:\nhttps://discordbotlist.com/bots/crescendo\n\n¡Obtén 5000 monedas gratis diariamente!'
         },
         "de": {
             "language_text": "Deutsch",
@@ -213,6 +215,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
     - **/set language**: Stelle deine Serversprache einund\n\n
     """,
             "not_your_game": "Das ist nicht dein Spiel!",
+            "vote_message": 'Klicken Sie hier, um abzustimmen:\nhttps://discordbotlist.com/bots/crescendo\n\nErhalten Sie täglich 5000 Münzen kostenlos!'
         },
         "bg": {
             "language_text" : "Български",
@@ -231,21 +234,18 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
             "guess_game_over": f"Играта приключи. Числото беше {number}. Повече късмет следващия път!",
             "guess_feedback_too_low": "Твърде ниско!",
             "guess_feedback_too_high": "Твърде високо!",
-            "blackjack_intro": f"Добре дошли в Blackjack! Вашият залог е `{bet}`. Вашият баланс е `{balance}`.",
-            "blackjack_your_hand": "Вашата ръка:",
-            "blackjack_dealer_hand": "Ръка на дилъра:",
-            "blackjack_total": "Общо: {total}",
-            "blackjack_dealer_total": "Общо на дилъра: {total}",
-            "blackjack_win": "Печелите! Вашето общо беше {total}.",
-            "blackjack_lose": "Загубихте! Общото на дилъра беше {total}.",
-            "blackjack_push": "Има равенство! Както вие, така и дилърът имате същото общо.",
-            "blackjack_busted": "Изгоряхте! Вашето общо беше {total}.",
-            "blackjack_dealer_busted": "Дилърът се провали! Общото на дилъра беше {total}. Печелите!",
-            "blackjack_bust": "Прехвърлихте! Успех следващия път.",
-            "blackjack_hit_or_stand": "Искате ли да теглите карта или да останете?",
-            "blackjack_you_win": "Поздравления! Вие спечелихте!",
-            "blackjack_congratulations": "Добра игра! На печеливша серия сте!",
-            "blackjack_after_doubling": "След удвояване вашата ръка е:",
+            "blackjack_intro": f"Добре дошли в Блекджек! Вашият залог е `{bet}` монети. Вашият баланс е `{balance}` монети. Успех!",
+            "blackjack_your_hand": "Вашата ръка: {cards} (Общо: {total})",
+            "blackjack_dealer_hand": "Ръката на дилъра: {cards} (Общо: {total})",
+            "blackjack_win": f"Поздравления! Печелите {winnings} монети с обща стойност от {total}.",
+            "blackjack_lose": f"Губите. Общата стойност на дилъра беше {total}. Успех следващия път.",
+            "blackjack_push": "Равенство! И вие, и дилърът имате една и съща обща стойност.",
+            "blackjack_busted": f"Прехвърлихте 21! Вашата обща стойност от {total} надвишава 21. Играта приключи.",
+            "blackjack_dealer_busted": f"Дилърът прехвърли 21 с обща стойност от {total}. Печелите {winnings} монети!",
+            "blackjack_hit_or_stand": "Искате ли **още една карта** (да теглите) или **да останете** (да продължите с настоящата си ръка)?",
+            "blackjack_after_doubling": "След удвояване вашата ръка е: {cards} (Общо: {total}).",
+            "blackjack_you_win": f"Печелите {winnings} монети! Поздравления!",
+            "blackjack_congratulations": "Добре изиграно! Вие сте в серия от победи!",
             "free_success": "Можете да получите 250 безплатни монети!",
             "free_rich": "Богат сте, приятелю!",
             "slot_intro": '''Залагате и въртите 3x3 мрежа, пълна с различни символи. Всеки символ има стойност на изплащане, а някои символи се появяват по-често от други.
@@ -286,7 +286,8 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
 
     """,
             "not_your_game": "Това не е твоята игра!",
-            "blackjack_dealer_now_playing": "Дилърът сега играе своята ръка."
+            "blackjack_dealer_now_playing": "Дилърът сега играе своята ръка.",
+            "vote_message": 'Натисни тук за да гласуваш:\nhttps://discordbotlist.com/bots/crescendo\n\n5000 монети ежедневно!'
         }
     }
 
