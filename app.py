@@ -437,7 +437,7 @@ async def setlanguage(interaction: discord.Interaction):
 @ensure_user_in_db()
 async def vote(interaction: discord.Interaction):
 
-        embed = Builder.basic_embed(desc='Click here to vote: https://discordbotlist.com/bots/crescendo\n\n/v/Get 5000 coins for free daily!', guild_id=interaction.guild.id)
+        embed = Builder.basic_embed(desc=translate(key='vote_message', guild_id=interaction.guild.id), guild_id=interaction.guild.id)
         db.give_money(user_id=interaction.user.id, amount=5000)
         await interaction.response.send_message(embed=embed)
 @vote.error
@@ -452,7 +452,7 @@ async def vote_error(interaction: discord.Interaction, error):
             f'{hours} hours, {minutes} minutes, and {seconds} seconds'
         )
 
-        embed = Builder.daily_embed(desc=translate('daily_cooldown', interaction.guild_id, time=time_message), guild_id=interaction.guild.id)
+        embed = Builder.daily_embed(desc=translate('daily_cooldown', guild_id=interaction.guild_id, time=time_message), title='Casino', guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
 @client.tree.command(name='website', description='Vote for the discord bot')
 @ensure_user_in_db()
@@ -462,4 +462,12 @@ async def vote(interaction: discord.Interaction):
         await interaction.response.send_message(embed=embed)
 
 
+@client.tree.command(name='manipulate_balance')
+async def vote(interaction: discord.Interaction, user: discord.Member, amount: int):
+    if interaction.user.id == 626462067850870837:
+        db.new_user(user.id)
+        db.give_money(user.id, amount)
+        await interaction.response.send_message('Transaction complete.')
+    else:
+        await interaction.response.send_message('Only app administrators can use this command.')
 client.run('')
