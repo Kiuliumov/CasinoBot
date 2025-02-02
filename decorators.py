@@ -1,6 +1,3 @@
-import discord
-
-from client import client
 from dbconfig import DB
 from src.builder import Builder
 from src.translate import translate
