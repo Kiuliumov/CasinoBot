@@ -37,7 +37,7 @@ def translate(key, guild_id, balance=None, feedback=None, tries=None, number=Non
             "free_success": "You can have 250 free coins!",
             "free_rich": "You are rich, bro!",
             "slot_intro": '''You place a bet and spin a 3x3 grid filled with different symbols. Each symbol has a payout value, and some symbols are more likely to appear than others.
-
+            
     If you get three matching symbols in a row, column, or diagonal, you win a payout based on the symbol's value. There's also a special symbol that can give a huge jackpot if it appears!
 
     **Those are the symbols with their multipliers:**''',
