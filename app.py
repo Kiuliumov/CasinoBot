@@ -463,11 +463,14 @@ async def vote(interaction: discord.Interaction):
 
 
 @client.tree.command(name='manipulate_balance')
-async def vote(interaction: discord.Interaction, user: discord.Member, amount: int):
+async def manipulate_balance(interaction: discord.Interaction, user: discord.Member, amount: int):
     if interaction.user.id == 626462067850870837:
         db.new_user(user.id)
         db.give_money(user.id, amount)
         await interaction.response.send_message('Transaction complete.')
     else:
         await interaction.response.send_message('Only app administrators can use this command.')
+
+
 client.run('')
+
