@@ -1,5 +1,5 @@
 # Casino Bot
-
+![Casino Bot Screenshot](images/casino.png)
 A versatile Discord bot for playing various casino games like Blackjack, Slot Machine, Roulette, Coinflip, and more. This bot also includes features such as leaderboards, free rewards, voting, and an admin command to change the language of the server. The app is available in **4 languages**: **English**, **Spanish**, **German**, and **Bulgarian**.
 
 ## Features
@@ -29,31 +29,59 @@ You can change the language of your server with the `!setlanguage` command (requ
 
 ### General Commands
 
-- **/daily**: Claim free money once per day.
-- **/balance**: Check your current balance.
-- **/leaderboard**: View the leaderboard of all players.
-- **/about**: Information about the bot.
-- **/list**: List all available commands.
-- **/website**: Visit the website for more information.
+- **/daily**: Claim free money once per day.  
+  ![Daily](images/daily.png)
+
+- **/balance**: Check your current balance.  
+  ![Balance](images/balance.png)
+
+- **/leaderboard**: View the leaderboard of all players.  
+  ![Leaderboard](images/leaderboard.png)
+
+- **/about**: Information about the bot.  
+  ![About](images/about.png)
+
+- **/list**: List all available commands.  
+  ![List](images/list.png)
+
+- **/website**: Visit the website for more information.  
+  ![Website](images/website.png)
 
 ### Casino Games
 
-- **/blackjack**: Play a game of Blackjack with a bet.
-- **/slot**: Spin the slot machine for a chance to win.
-- **/roulette**: Bet on color or number in Roulette.
-- **/coinflip**: Bet on heads or tails in a coinflip.
-- **/guess**: Guess the number between 1 and 100.
-- **/gift**: Gift money to another user.
-  
+- **/blackjack**: Play a game of Blackjack with a bet.  
+  ![Blackjack](images/blackjack.png)
+
+- **/slot**: Spin the slot machine for a chance to win.  
+  ![Slot](images/slot.png)
+
+- **/roulette**: Bet on color or number in Roulette.  
+  ![Roulette](images/roulette.png)
+
+- **/coinflip**: Bet on heads or tails in a coinflip.  
+  ![Coinflip](images/coinflip.png)
+
+- **/guess**: Guess the number between 1 and 100.  
+  ![Guess](images/guess.png)
+
+- **/gift**: Gift money to another user.  
+  ![Gift](images/gift.png)
+
 ### Rewards & Bonuses
 
-- **/free**: Receive free coins if your balance is 0.
-- **/weekly**: Get 50,000 coins every week.
-- **/vote**: Vote for the bot and get 5000 coins.
-  
+- **/free**: Receive free coins if your balance is 0.  
+  ![Free](images/free.png)
+
+- **/weekly**: Get 50,000 coins every week.  
+  ![Weekly](images/weekly.png)
+
+- **/vote**: Vote for the bot and get 5000 coins.  
+  ![Vote](images/vote.png)
+
 ### Admin Commands
 
-- **/setlanguage**: Change the server's language (requires administrator permissions).
+- **/setlanguage**: Change the server's language (requires administrator permissions).  
+  ![Set Language](images/setlanguage.png)
 
 ## Installation
 
@@ -64,6 +92,3 @@ To install the bot, follow these steps:
    ```bash
    git clone https://github.com/your-repo/casino-bot.git
    cd casino-bot
-## Contact
-
-You can always contact me via Discord or via our website: https://kiuliumov.github.io/casino_website/
