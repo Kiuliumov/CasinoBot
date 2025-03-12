@@ -34,16 +34,11 @@ You can change the language of your server with the `!setlanguage` command (requ
 
 - **/balance**: Check your current balance.  
   ![Balance](images/balance.png)
-
 - **/leaderboard**: View the leaderboard of all players.  
   ![Leaderboard](images/leaderboard.png)
 
 - **/about**: Information about the bot.  
-  ![About](images/about.png)
-
 - **/list**: List all available commands.  
-  ![List](images/list.png)
-
 - **/website**: Visit the website for more information.  
   ![Website](images/website.png)
 
@@ -62,21 +57,17 @@ You can change the language of your server with the `!setlanguage` command (requ
   ![Coinflip](images/coinflip.png)
 
 - **/guess**: Guess the number between 1 and 100.  
-  ![Guess](images/guess.png)
 
 - **/gift**: Gift money to another user.  
-  ![Gift](images/gift.png)
 
 ### Rewards & Bonuses
 
 - **/free**: Receive free coins if your balance is 0.  
-  ![Free](images/free.png)
 
 - **/weekly**: Get 50,000 coins every week.  
   ![Weekly](images/weekly.png)
 
 - **/vote**: Vote for the bot and get 5000 coins.  
-  ![Vote](images/vote.png)
 
 ### Admin Commands
 
