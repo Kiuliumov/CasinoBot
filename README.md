@@ -29,32 +29,27 @@ You can change the language of your server with the `!setlanguage` command (requ
 
 ### General Commands
 
-- **/daily**: Claim free money once per day.  
-  ![Daily](images/daily.png)
+- **/daily**: Claim free money once per day.
 
-- **/balance**: Check your current balance.  
-  ![Balance](images/balance.png)
+- **/balance**: Check your current balance.
+  
 - **/leaderboard**: View the leaderboard of all players.  
-  ![Leaderboard](images/leaderboard.png)
 
-- **/about**: Information about the bot.  
-- **/list**: List all available commands.  
+- **/about**: Information about the bot.
+
+- **/list**: List all available commands.
+  
 - **/website**: Visit the website for more information.  
-  ![Website](images/website.png)
 
 ### Casino Games
 
 - **/blackjack**: Play a game of Blackjack with a bet.  
-  ![Blackjack](images/blackjack.png)
 
 - **/slot**: Spin the slot machine for a chance to win.  
-  ![Slot](images/slot.png)
 
 - **/roulette**: Bet on color or number in Roulette.  
-  ![Roulette](images/roulette.png)
 
 - **/coinflip**: Bet on heads or tails in a coinflip.  
-  ![Coinflip](images/coinflip.png)
 
 - **/guess**: Guess the number between 1 and 100.  
 
@@ -65,7 +60,6 @@ You can change the language of your server with the `!setlanguage` command (requ
 - **/free**: Receive free coins if your balance is 0.  
 
 - **/weekly**: Get 50,000 coins every week.  
-  ![Weekly](images/weekly.png)
 
 - **/vote**: Vote for the bot and get 5000 coins.  
 
@@ -73,8 +67,33 @@ You can change the language of your server with the `!setlanguage` command (requ
 
 - **/setlanguage**: Change the server's language (requires administrator permissions).  
 
-## Installation
 
+# Screenshots
+  ![Daily](images/daily.png)
+
+
+  ![Balance](images/balance.png)
+
+
+  ![Leaderboard](images/leaderboard.png)
+
+  
+  ![Blackjack](images/blackjack.png)
+
+  
+  ![Slot](images/slot.png)
+
+  
+  ![Roulette](images/roulette.png)
+
+
+  ![Coinflip](images/coinflip.png)
+
+
+  ![Weekly](images/weekly.png)
+
+
+## Installation
 To install the bot, follow these steps:
 
 1. Clone the repository:
