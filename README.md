@@ -72,7 +72,6 @@ You can change the language of your server with the `!setlanguage` command (requ
 ### Admin Commands
 
 - **/setlanguage**: Change the server's language (requires administrator permissions).  
-  ![Set Language](images/setlanguage.png)
 
 ## Installation
 
