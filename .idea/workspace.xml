@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9ad3f3e4-abbf-4571-a3f8-09010bf58337" name="Changes" comment="app">
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casino.db" beforeDir="false" afterPath="$PROJECT_DIR$/casino.db" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Kiuliumov&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Kiuliumov/CasinoBot.git&quot;,
+    &quot;accountId&quot;: &quot;60ead4a6-f26e-4d10-8d98-07e98e4bbcae&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2rJFRIBEjSJY45NCUct9SK3CYnQ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.builder.executor&quot;: &quot;Run&quot;,
+    &quot;Python.caller.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;Python.slot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.slot_game (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.slot_game.executor&quot;: &quot;Run&quot;,
+    &quot;Python.slot_image (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.slot_image.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.translate.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/admin/Documents/GitHub/CasinoBot/src/images&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Documents\GitHub\CasinoBot\src\images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Documents\GitHub\CasinoBot\src\images\symbols" />
+      <recent name="C:\Users\admin\Documents\GitHub\CasinoBot\src" />
+      <recent name="C:\Users\admin\Documents\GitHub\CasinoBot\src\views" />
+      <recent name="C:\Users\admin\Documents\GitHub\CasinoBot" />
+      <recent name="C:\Users\admin\Documents\GitHub\CasinoBot\src\images" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.app">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/CasinoBot/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="CasinoBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="builder" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CasinoBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/builder.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="slot_game (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CasinoBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/slot_game.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="slot_image (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CasinoBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/slot_image.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="translate" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CasinoBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/translate.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+        <item itemvalue="Python.translate" />
+        <item itemvalue="Python.builder" />
+        <item itemvalue="Python.slot_game (1)" />
+        <item itemvalue="Python.slot_image (1)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9ad3f3e4-abbf-4571-a3f8-09010bf58337" name="Changes" comment="" />
+      <created>1736269262012</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1736269262012</updated>
+      <workItem from="1736269263298" duration="1885000" />
+      <workItem from="1736342390717" duration="596000" />
+      <workItem from="1736358279754" duration="472000" />
+      <workItem from="1736359719331" duration="20000" />
+      <workItem from="1736359767523" duration="1058000" />
+      <workItem from="1736361490777" duration="301000" />
+      <workItem from="1736361932831" duration="2000" />
+      <workItem from="1736433294588" duration="1318000" />
+      <workItem from="1736438955814" duration="1801000" />
+      <workItem from="1736444486372" duration="20000" />
+      <workItem from="1736447527518" duration="749000" />
+      <workItem from="1736592506565" duration="441000" />
+      <workItem from="1736607150133" duration="17783000" />
+      <workItem from="1736673155341" duration="2365000" />
+      <workItem from="1736698874788" duration="4691000" />
+      <workItem from="1736709879853" duration="856000" />
+      <workItem from="1736712266006" duration="300000" />
+      <workItem from="1736713315013" duration="1558000" />
+      <workItem from="1736775034800" duration="712000" />
+      <workItem from="1736786854973" duration="2124000" />
+      <workItem from="1736790312281" duration="1197000" />
+      <workItem from="1736878102943" duration="3726000" />
+      <workItem from="1736941396187" duration="387000" />
+      <workItem from="1737030289526" duration="2682000" />
+      <workItem from="1737036508307" duration="3368000" />
+      <workItem from="1737097295586" duration="9702000" />
+      <workItem from="1737125634031" duration="2460000" />
+      <workItem from="1737213066039" duration="724000" />
+      <workItem from="1737217256006" duration="791000" />
+      <workItem from="1737218651726" duration="1000" />
+      <workItem from="1737223370394" duration="152000" />
+      <workItem from="1737234977065" duration="1000" />
+      <workItem from="1737276082538" duration="6107000" />
+      <workItem from="1737282404397" duration="5240000" />
+      <workItem from="1737383742254" duration="17000" />
+      <workItem from="1737391263857" duration="1180000" />
+      <workItem from="1737471897542" duration="7000" />
+      <workItem from="1737565911671" duration="609000" />
+      <workItem from="1737695932978" duration="297000" />
+      <workItem from="1737722524864" duration="1150000" />
+      <workItem from="1737744285368" duration="1908000" />
+      <workItem from="1737788978571" duration="1751000" />
+      <workItem from="1737832782500" duration="475000" />
+      <workItem from="1737878618331" duration="1769000" />
+      <workItem from="1737922812424" duration="7000" />
+      <workItem from="1738225684198" duration="7000" />
+      <workItem from="1738486449965" duration="1222000" />
+      <workItem from="1738575269886" duration="275000" />
+      <workItem from="1738596817967" duration="513000" />
+      <workItem from="1738605949876" duration="1000" />
+      <workItem from="1738606559995" duration="1000" />
+      <workItem from="1738607488520" duration="1000" />
+      <workItem from="1738658854992" duration="2000" />
+      <workItem from="1738746752715" duration="225000" />
+      <workItem from="1738749671059" duration="308000" />
+      <workItem from="1738769645481" duration="598000" />
+      <workItem from="1738835597815" duration="595000" />
+      <workItem from="1738851443763" duration="16000" />
+      <workItem from="1738874575736" duration="1000" />
+      <workItem from="1738937690091" duration="37000" />
+      <workItem from="1739595626331" duration="397000" />
+      <workItem from="1739620446218" duration="34000" />
+      <workItem from="1739824658422" duration="1031000" />
+      <workItem from="1740259159942" duration="633000" />
+      <workItem from="1741757335032" duration="2492000" />
+      <workItem from="1741774664271" duration="595000" />
+      <workItem from="1741789964694" duration="2000" />
+    </task>
+    <task id="LOCAL-00001" summary="app">
+      <option name="closed" value="true" />
+      <created>1736607167360</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1736607167360</updated>
+    </task>
+    <task id="LOCAL-00002" summary="app">
+      <option name="closed" value="true" />
+      <created>1736607174444</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1736607174444</updated>
+    </task>
+    <task id="LOCAL-00003" summary="app">
+      <option name="closed" value="true" />
+      <created>1736607180725</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736607180725</updated>
+    </task>
+    <task id="LOCAL-00004" summary="app">
+      <option name="closed" value="true" />
+      <created>1736607184903</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1736607184903</updated>
+    </task>
+    <task id="LOCAL-00005" summary="app">
+      <option name="closed" value="true" />
+      <created>1736607192085</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736607192085</updated>
+    </task>
+    <task id="LOCAL-00006" summary="app">
+      <option name="closed" value="true" />
+      <created>1736880620022</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736880620022</updated>
+    </task>
+    <task id="LOCAL-00007" summary="app">
+      <option name="closed" value="true" />
+      <created>1736880628988</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1736880628988</updated>
+    </task>
+    <task id="LOCAL-00008" summary="app">
+      <option name="closed" value="true" />
+      <created>1736880639198</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1736880639198</updated>
+    </task>
+    <task id="LOCAL-00009" summary="app">
+      <option name="closed" value="true" />
+      <created>1736880651043</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736880651043</updated>
+    </task>
+    <task id="LOCAL-00010" summary="app">
+      <option name="closed" value="true" />
+      <created>1737039748349</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1737039748349</updated>
+    </task>
+    <task id="LOCAL-00011" summary="app">
+      <option name="closed" value="true" />
+      <created>1737039759935</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1737039759935</updated>
+    </task>
+    <task id="LOCAL-00012" summary="app">
+      <option name="closed" value="true" />
+      <created>1737039764089</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737039764089</updated>
+    </task>
+    <task id="LOCAL-00013" summary="app">
+      <option name="closed" value="true" />
+      <created>1737039770708</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737039770708</updated>
+    </task>
+    <task id="LOCAL-00014" summary="app">
+      <option name="closed" value="true" />
+      <created>1737039774710</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1737039774710</updated>
+    </task>
+    <task id="LOCAL-00015" summary="app">
+      <option name="closed" value="true" />
+      <created>1737039792294</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1737039792294</updated>
+    </task>
+    <task id="LOCAL-00016" summary="app">
+      <option name="closed" value="true" />
+      <created>1737281035898</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1737281035898</updated>
+    </task>
+    <task id="LOCAL-00017" summary="app">
+      <option name="closed" value="true" />
+      <created>1737281040504</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1737281040504</updated>
+    </task>
+    <task id="LOCAL-00018" summary="app">
+      <option name="closed" value="true" />
+      <created>1737281044642</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1737281044642</updated>
+    </task>
+    <task id="LOCAL-00019" summary="app">
+      <option name="closed" value="true" />
+      <created>1737281048681</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1737281048681</updated>
+    </task>
+    <task id="LOCAL-00020" summary="app">
+      <option name="closed" value="true" />
+      <created>1737281056726</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1737281056726</updated>
+    </task>
+    <task id="LOCAL-00021" summary="app">
+      <option name="closed" value="true" />
+      <created>1737281060450</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1737281060450</updated>
+    </task>
+    <task id="LOCAL-00022" summary="app">
+      <option name="closed" value="true" />
+      <created>1737281064243</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1737281064243</updated>
+    </task>
+    <task id="LOCAL-00023" summary="app">
+      <option name="closed" value="true" />
+      <created>1737286277953</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1737286277953</updated>
+    </task>
+    <task id="LOCAL-00024" summary="app">
+      <option name="closed" value="true" />
+      <created>1737286285549</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1737286285549</updated>
+    </task>
+    <task id="LOCAL-00025" summary="app">
+      <option name="closed" value="true" />
+      <created>1737287138175</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1737287138175</updated>
+    </task>
+    <task id="LOCAL-00026" summary="app">
+      <option name="closed" value="true" />
+      <created>1737290177483</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1737290177483</updated>
+    </task>
+    <task id="LOCAL-00027" summary="app">
+      <option name="closed" value="true" />
+      <created>1737290181736</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1737290181736</updated>
+    </task>
+    <task id="LOCAL-00028" summary="app">
+      <option name="closed" value="true" />
+      <created>1737790100000</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1737790100000</updated>
+    </task>
+    <task id="LOCAL-00029" summary="app">
+      <option name="closed" value="true" />
+      <created>1737790105775</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1737790105775</updated>
+    </task>
+    <task id="LOCAL-00030" summary="app">
+      <option name="closed" value="true" />
+      <created>1737790109995</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1737790109995</updated>
+    </task>
+    <task id="LOCAL-00031" summary="app">
+      <option name="closed" value="true" />
+      <created>1737790113787</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1737790113787</updated>
+    </task>
+    <task id="LOCAL-00032" summary="app">
+      <option name="closed" value="true" />
+      <created>1737790129744</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1737790129744</updated>
+    </task>
+    <task id="LOCAL-00033" summary="app">
+      <option name="closed" value="true" />
+      <created>1738486453736</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1738486453736</updated>
+    </task>
+    <task id="LOCAL-00034" summary="app">
+      <option name="closed" value="true" />
+      <created>1738486460009</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1738486460009</updated>
+    </task>
+    <task id="LOCAL-00035" summary="app">
+      <option name="closed" value="true" />
+      <created>1738486463849</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1738486463849</updated>
+    </task>
+    <task id="LOCAL-00036" summary="app">
+      <option name="closed" value="true" />
+      <created>1738486470093</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1738486470093</updated>
+    </task>
+    <task id="LOCAL-00037" summary="app">
+      <option name="closed" value="true" />
+      <created>1738486476429</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1738486476429</updated>
+    </task>
+    <task id="LOCAL-00038" summary="app">
+      <option name="closed" value="true" />
+      <created>1739595638683</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1739595638683</updated>
+    </task>
+    <task id="LOCAL-00039" summary="app">
+      <option name="closed" value="true" />
+      <created>1739595643142</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1739595643142</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="app" />
+    <option name="LAST_COMMIT_MESSAGE" value="app" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CasinoBot$test.coverage" NAME="test Coverage Results" MODIFIED="1736668636142" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CasinoBot$slot_image.coverage" NAME="slot_image Coverage Results" MODIFIED="1736666229318" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CasinoBot$builder.coverage" NAME="builder Coverage Results" MODIFIED="1737099809788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CasinoBot$slot_game.coverage" NAME="slot_game Coverage Results" MODIFIED="1736666481504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/views" />
+    <SUITE FILE_PATH="coverage/CasinoBot$caller.coverage" NAME="caller Coverage Results" MODIFIED="1736447833660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CasinoBot$slot.coverage" NAME="slot Coverage Results" MODIFIED="1736668575248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CasinoBot$slot_game__1_.coverage" NAME="slot_game (1) Coverage Results" MODIFIED="1736670129935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CasinoBot$app.coverage" NAME="app Coverage Results" MODIFIED="1741758394059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CasinoBot$slot_image__1_.coverage" NAME="slot_image (1) Coverage Results" MODIFIED="1736669083986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CasinoBot$translate.coverage" NAME="translate Coverage Results" MODIFIED="1737106488012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CasinoBot$run.coverage" NAME="run Coverage Results" MODIFIED="1736448257110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../GDBOT" />
+  </component>
+</project>

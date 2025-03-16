@@ -236,7 +236,7 @@ async def on_weekly_error(interaction: discord.Interaction, error: discord.app_c
             f'{hours} hours, {minutes} minutes, and {seconds} seconds'
         )
 
-        embed = Builder.daily_embed(desc=translate('daily_cooldown', interaction.guild_id, time=time_message), guild_id=interaction.guild.id)
+        embed = Builder.daily_embed(title=translate(key='daily_error', guild_id=interaction.guild.id) ,desc=translate('daily_cooldown', interaction.guild_id, time=time_message), guild_id=interaction.guild.id)
         await interaction.response.send_message(embed=embed)
 
 
@@ -273,10 +273,9 @@ async def gift(interaction: discord.Interaction, amount: int, user: discord.User
 @client.tree.command(name='about', description='Information about the bot')
 @ensure_user_in_db()
 async def about(interaction: discord.Interaction):
-    embed = discord.Embed(title=translate('about', interaction.guild_id)).set_author(name=f'{client.user.name}', icon_url=client.user.avatar)
-    embed.description = translate('about', interaction.guild_id)
-    embed.set_image(url='https://img.freepik.com/free-vector/golden-casino-background-with-playing-cards_1017-33699.jpg')
-    embed.set_footer(text=translate('footer', interaction.guild_id))
+    embed = discord.Embed(title=translate('about', interaction.guild_id)).set_author(name=f'{client.user.name}', icon_url=client.user.avatar.url)
+    embed.description = 'https://kiuliumov.github.io/casino_website/'
+
     await interaction.response.send_message(embed=embed)
 
 @client.tree.command(name='coinflip', description='A coinflip command!')
@@ -466,11 +465,10 @@ async def vote(interaction: discord.Interaction):
 async def manipulate_balance(interaction: discord.Interaction, user: discord.Member, amount: int):
     if interaction.user.id == 626462067850870837:
         db.new_user(user.id)
-        db.give_money(user.id, amount)
         await interaction.response.send_message('Transaction complete.')
     else:
         await interaction.response.send_message('Only app administrators can use this command.')
 
 
-client.run('')
+client.run('ODM0NDg4MzQ2MTcxOTMyNzAy.GecqaJ.c6oCQbV8IVVY0I5KusgTTamtEFK1wbtsOQtYsY')
 
