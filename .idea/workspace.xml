@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9ad3f3e4-abbf-4571-a3f8-09010bf58337" name="Changes" comment="app">
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/casino.db" beforeDir="false" afterPath="$PROJECT_DIR$/casino.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -302,6 +301,7 @@
       <workItem from="1741757335032" duration="2492000" />
       <workItem from="1741774664271" duration="595000" />
       <workItem from="1741789964694" duration="2000" />
+      <workItem from="1742132881456" duration="5000" />
     </task>
     <task id="LOCAL-00001" summary="app">
       <option name="closed" value="true" />
