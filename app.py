@@ -470,5 +470,5 @@ async def manipulate_balance(interaction: discord.Interaction, user: discord.Mem
         await interaction.response.send_message('Only app administrators can use this command.')
 
 
-client.run('ODM0NDg4MzQ2MTcxOTMyNzAy.GecqaJ.c6oCQbV8IVVY0I5KusgTTamtEFK1wbtsOQtYsY')
+client.run('')
 
