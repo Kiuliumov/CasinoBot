@@ -57,24 +57,40 @@ A fun and feature-rich **Discord casino bot** where users can enjoy classic game
 
 ### General Commands
 - **/daily**
+
+  
   ![Daily](images/daily.png)
 - **/balance**
+
+  
   ![Balance](images/balance.png)
 - **/leaderboard**
+
+  
   ![Leaderboard](images/leaderboard.png)
 
 ### Casino Games
 - **/blackjack**
+
+  
   ![Blackjack](images/blackjack.png)
 - **/slot**
+
+  
   ![Slot](images/slot.png)
 - **/roulette**
+
+  
   ![Roulette](images/roulette.png)
 - **/coinflip**
+
+  
   ![Coinflip](images/coinflip.png)
 
 ### Rewards
 - **/weekly**
+
+  
   ![Weekly](images/weekly.png)
 
 ---
