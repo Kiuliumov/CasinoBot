@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9ad3f3e4-abbf-4571-a3f8-09010bf58337" name="Changes" comment="app">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/casino.db" beforeDir="false" afterPath="$PROJECT_DIR$/casino.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,6 +315,13 @@
       <workItem from="1744287166416" duration="714000" />
       <workItem from="1744354730130" duration="790000" />
       <workItem from="1744363344904" duration="40000" />
+      <workItem from="1744564212986" duration="594000" />
+      <workItem from="1744825126937" duration="76000" />
+      <workItem from="1746638446235" duration="2000" />
+      <workItem from="1750099847641" duration="6000" />
+      <workItem from="1750408456097" duration="21000" />
+      <workItem from="1750408482767" duration="11000" />
+      <workItem from="1750481006107" duration="51000" />
     </task>
     <task id="LOCAL-00001" summary="app">
       <option name="closed" value="true" />
@@ -646,7 +654,7 @@
     <SUITE FILE_PATH="coverage/CasinoBot$caller.coverage" NAME="caller Coverage Results" MODIFIED="1736447833660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CasinoBot$slot.coverage" NAME="slot Coverage Results" MODIFIED="1736668575248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CasinoBot$slot_game__1_.coverage" NAME="slot_game (1) Coverage Results" MODIFIED="1736670129935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CasinoBot$app.coverage" NAME="app Coverage Results" MODIFIED="1741758394059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CasinoBot$app.coverage" NAME="app Coverage Results" MODIFIED="1744564340911" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CasinoBot$slot_image__1_.coverage" NAME="slot_image (1) Coverage Results" MODIFIED="1736669083986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CasinoBot$translate.coverage" NAME="translate Coverage Results" MODIFIED="1737106488012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CasinoBot$run.coverage" NAME="run Coverage Results" MODIFIED="1736448257110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../GDBOT" />
