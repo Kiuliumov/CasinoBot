@@ -3,7 +3,7 @@ import asyncio
 from dbconfig import DB
 import discord
 from discord.ext import commands
-
+import time
 from src.blackjack import Blackjack
 from src.builder import Builder
 from client import client
@@ -470,5 +470,37 @@ async def manipulate_balance(interaction: discord.Interaction, user: discord.Mem
         await interaction.response.send_message('Only app administrators can use this command.')
 
 
+@client.tree.command(name='roll')
+@ensure_user_in_db()
+async def rng_prediction(interaction: discord.Interaction, amount: int, number_length: int):
+    winnings = amount * number_length
+
+    random_number = random.randint(1, number_length)
+
+    db.take_money(amount, interaction.user.id)
+
+    roll = await interaction.response.send_message(
+        embed=Builder.basic_embed(
+            desc=f'You rolled a {random_number}!',
+            guild_id=interaction.guild.id
+        )
+    )
+
+
+    time.sleep(5)
+
+    roll.edit(embed=Builder.basic_embed("Cantinta", guild_id=interaction.guild.id))
+    
+    if number_length < 1 or number_length > 100:
+        await interaction.response.send_message('Invalid roll length. Must be between 1 and 100.')
+        return None
+
+    if amount == random_number:
+        db.give_money(interaction.user.id, winnings)
+        await interaction.response.send_message(embed=Builder.basic_embed(desc=f'You won {winnings}!', guild_id=interaction.guild.id))
+
+    else:
+        await interaction.response.send_message(embed=Builder.basic_embed(desc=f'You lost {amount}! The number was {random_number}', guild_id=interaction.guild.id))
+    return None
 client.run('')
 
