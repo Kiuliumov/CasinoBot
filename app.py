@@ -490,7 +490,7 @@ async def rng_prediction(interaction: discord.Interaction, amount: int, number_l
     time.sleep(5)
 
     roll.edit(embed=Builder.basic_embed("Cantinta", guild_id=interaction.guild.id))
-    
+
     if number_length < 1 or number_length > 100:
         await interaction.response.send_message('Invalid roll length. Must be between 1 and 100.')
         return None
