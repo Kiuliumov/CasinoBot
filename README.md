@@ -101,6 +101,7 @@ A fun and feature-rich **Discord casino bot** where users can enjoy classic game
    ```bash
    git clone https://github.com/your-repo/casino-bot.git
    cd casino-bot
+   python3 run.py
    ```
 
 2. Set up your bot with your preferred hosting method.
