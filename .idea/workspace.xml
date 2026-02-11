@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9ad3f3e4-abbf-4571-a3f8-09010bf58337" name="Changes" comment="app">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/casino.db" beforeDir="false" afterPath="$PROJECT_DIR$/casino.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -325,7 +324,9 @@
       <workItem from="1750408482767" duration="11000" />
       <workItem from="1750481006107" duration="51000" />
       <workItem from="1750950379621" duration="209000" />
-      <workItem from="1750957997344" duration="903000" />
+      <workItem from="1750957997344" duration="972000" />
+      <workItem from="1752086369442" duration="85000" />
+      <workItem from="1759310430767" duration="436000" />
     </task>
     <task id="LOCAL-00001" summary="app">
       <option name="closed" value="true" />
