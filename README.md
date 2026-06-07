@@ -2,7 +2,6 @@
 # 🎰 Casino Bot
 
 A fun and feature-rich **Discord casino bot** where users can enjoy classic games like **Blackjack**, **Slot Machine**, **Roulette**, **Coinflip**, and more! Casino Bot also includes daily and weekly rewards, leaderboards, a gifting system, and multilingual support. Available in **English**, **Spanish**, **German**, and **Bulgarian**.
-
 ---
 
 ## 🌟 Features
